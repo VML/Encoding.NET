@@ -14,7 +14,7 @@ using Microsoft.Practices.EnterpriseLibrary.Validation;
 
 #endregion
 
-namespace VML.Encoding.Validation.Validators
+namespace VML.Encoding.Model.Validation.Validators
 {
     public class ActionDependentRequired : Validator<string>
     {

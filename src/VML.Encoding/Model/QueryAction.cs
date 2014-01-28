@@ -13,7 +13,7 @@ using System.Linq;
 
 #endregion
 
-namespace VML.Encoding
+namespace VML.Encoding.Model
 {
     /// <summary>
     ///     Available encoding.com query actions.  http://www.encoding.com/api#ActionList

@@ -11,8 +11,9 @@
 using System;
 using System.Linq;
 using Plant.Core;
+using VML.Encoding.Model;
+using VML.Encoding.Model.Validation;
 using VML.Encoding.Tests.TheoryData;
-using VML.Encoding.Validation;
 using Xunit;
 using Xunit.Extensions;
 

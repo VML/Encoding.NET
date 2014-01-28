@@ -15,7 +15,7 @@ using Microsoft.Practices.EnterpriseLibrary.Validation;
 
 #endregion
 
-namespace VML.Encoding.Validation
+namespace VML.Encoding.Model.Validation
 {
     public static class ValidationExtensions
     {

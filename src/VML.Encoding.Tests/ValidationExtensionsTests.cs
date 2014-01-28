@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
-using VML.Encoding.Validation;
+using VML.Encoding.Model.Validation;
 using Xunit;
 using Xunit.Extensions;
 

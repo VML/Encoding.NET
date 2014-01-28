@@ -11,6 +11,7 @@
 using System;
 using System.Linq;
 using Plant.Core;
+using VML.Encoding.Model;
 
 #endregion
 
