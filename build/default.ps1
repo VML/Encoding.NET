@@ -1,6 +1,6 @@
 properties {
   $framework = "v4.5"
-  $solution_name = "VML.EncodingDotCom"
+  $solution_name = "VML.Encoding"
   $base_dir  = resolve-path ..\
   $build_base_dir = "$base_dir\build"
   $output_dir = "$build_base_dir\output"

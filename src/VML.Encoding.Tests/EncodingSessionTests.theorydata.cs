@@ -13,9 +13,9 @@ using System.Linq;
 
 #endregion
 
-namespace VML.EncodingDotCom.Tests
+namespace VML.Encoding.Tests
 {
-    public partial class EncodingSessionTests
+    public partial class EncodingClientTests
     {
     }
 }

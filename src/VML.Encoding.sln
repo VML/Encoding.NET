@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VML.EncodingDotCom", "VML.EncodingDotCom\VML.EncodingDotCom.csproj", "{F77BA2C7-7F66-451C-AF80-97A2384C83DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VML.Encoding", "VML.EncodingDotCom\VML.Encoding.csproj", "{F77BA2C7-7F66-451C-AF80-97A2384C83DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VML.EncodingDotCom.Tests", "VML.EncodingDotCom.Tests\VML.EncodingDotCom.Tests.csproj", "{575227B4-0B6A-44F1-9E25-9C723BEA6A8D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VML.Encoding.Tests", "VML.EncodingDotCom.Tests\VML.Encoding.Tests.csproj", "{575227B4-0B6A-44F1-9E25-9C723BEA6A8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

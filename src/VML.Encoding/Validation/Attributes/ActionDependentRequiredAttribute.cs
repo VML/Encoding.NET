@@ -12,11 +12,11 @@ using System;
 using System.Linq;
 using Microsoft.Practices.EnterpriseLibrary.Validation;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
-using VML.EncodingDotCom.Validation.Validators;
+using VML.Encoding.Validation.Validators;
 
 #endregion
 
-namespace VML.EncodingDotCom.Validation.Attributes
+namespace VML.Encoding.Validation.Attributes
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public class ActionDependentRequiredAttribute : ValidatorAttribute

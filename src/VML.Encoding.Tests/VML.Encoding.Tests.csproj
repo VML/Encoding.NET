@@ -7,8 +7,8 @@
     <ProjectGuid>{575227B4-0B6A-44F1-9E25-9C723BEA6A8D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VML.EncodingDotCom.Tests</RootNamespace>
-    <AssemblyName>VML.EncodingDotCom.Tests</AssemblyName>
+    <RootNamespace>VML.Encoding.Tests</RootNamespace>
+    <AssemblyName>VML.Encoding.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -63,7 +63,7 @@
     <Compile Include="Blueprints\EncodingQueryBlueprint.cs" />
     <Compile Include="EncodingQueryTests.cs" />
     <Compile Include="EncodingSessionTests.theorydata.cs" />
-    <Compile Include="EncodingSessionTests.cs" />
+    <Compile Include="EncodingClientTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TheoryData\SourceFileRequiredQueryActions.cs" />
     <Compile Include="TheoryData\MediaIdRequiredQueryActions.cs" />
@@ -73,9 +73,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VML.EncodingDotCom\VML.EncodingDotCom.csproj">
+    <ProjectReference Include="..\VML.EncodingDotCom\VML.Encoding.csproj">
       <Project>{f77ba2c7-7f66-451c-af80-97a2384c83dc}</Project>
-      <Name>VML.EncodingDotCom</Name>
+      <Name>VML.Encoding</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

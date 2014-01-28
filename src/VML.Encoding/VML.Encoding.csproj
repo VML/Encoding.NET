@@ -7,8 +7,8 @@
     <ProjectGuid>{F77BA2C7-7F66-451C-AF80-97A2384C83DC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VML.EncodingDotCom</RootNamespace>
-    <AssemblyName>VML.EncodingDotCom</AssemblyName>
+    <RootNamespace>VML.Encoding</RootNamespace>
+    <AssemblyName>VML.Encoding</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="QueryAction.cs" />
     <Compile Include="EncodingQuery.cs" />
-    <Compile Include="EncodingSession.cs" />
+    <Compile Include="EncodingClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validation\Attributes\ActionDependentRequiredAttribute.cs" />
     <Compile Include="Validation\ValidationExtensions.cs" />

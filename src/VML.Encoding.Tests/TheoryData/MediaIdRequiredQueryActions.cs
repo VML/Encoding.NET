@@ -1,9 +1,9 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="SourceFileRequiredQueryActions.cs" company="VML">
+//  <copyright file="MediaIdRequiredQueryActions.cs" company="VML">
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
-//  <created>01/23/2014 11:20 AM</created>
-//  <updated>01/23/2014 11:21 AM by Ben Ramey</updated>
+//  <created>01/23/2014 9:33 AM</created>
+//  <updated>01/23/2014 10:50 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -15,16 +15,19 @@ using System.Linq;
 
 #endregion
 
-namespace VML.EncodingDotCom.Tests.TheoryData
+namespace VML.Encoding.Tests.TheoryData
 {
-    public class SourceFileRequiredQueryActions : IEnumerable<object[]>
+    public class MediaIdRequiredQueryActions : IEnumerable<object[]>
     {
         #region Constants and Fields
 
         private readonly List<object[]> _data = new List<object[]>
             {
-                new object[] { QueryAction.AddMedia },
-                new object[] { QueryAction.AddMediaBenchmark },
+                new object[] { QueryAction.UpdateMedia },
+                new object[] { QueryAction.ProcessMedia },
+                new object[] { QueryAction.CancelMedia },
+                new object[] { QueryAction.GetMediaInfo },
+                new object[] { QueryAction.GetStatus }
             };
 
         #endregion

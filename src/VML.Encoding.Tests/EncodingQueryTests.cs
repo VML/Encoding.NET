@@ -11,14 +11,14 @@
 using System;
 using System.Linq;
 using Plant.Core;
-using VML.EncodingDotCom.Tests.TheoryData;
-using VML.EncodingDotCom.Validation;
+using VML.Encoding.Tests.TheoryData;
+using VML.Encoding.Validation;
 using Xunit;
 using Xunit.Extensions;
 
 #endregion
 
-namespace VML.EncodingDotCom.Tests
+namespace VML.Encoding.Tests
 {
     public class EncodingQueryTests
     {

@@ -13,13 +13,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
-using VML.EncodingDotCom.Validation;
+using VML.Encoding.Validation;
 using Xunit;
 using Xunit.Extensions;
 
 #endregion
 
-namespace VML.EncodingDotCom.Tests
+namespace VML.Encoding.Tests
 {
     public class ValidationExtensionsTests
     {

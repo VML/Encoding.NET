@@ -14,7 +14,7 @@ using Plant.Core;
 
 #endregion
 
-namespace VML.EncodingDotCom.Tests.Blueprints
+namespace VML.Encoding.Tests.Blueprints
 {
     internal class EncodingQueryBlueprint : IBlueprint
     {
