@@ -73,7 +73,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VML.EncodingDotCom\VML.Encoding.csproj">
+    <ProjectReference Include="..\VML.Encoding\VML.Encoding.csproj">
       <Project>{f77ba2c7-7f66-451c-af80-97a2384c83dc}</Project>
       <Name>VML.Encoding</Name>
     </ProjectReference>
