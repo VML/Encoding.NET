@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/28/2014 5:59 PM</created>
-//  <updated>01/28/2014 6:00 PM by Ben Ramey</updated>
+//  <updated>01/29/2014 9:44 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -40,7 +40,24 @@ namespace VML.Encoding.Model.Validation.Attributes
 
         protected override Validator DoCreateValidator(Type targetType)
         {
-            return new ActionDependentRequired(_actions, null, null);
+            Validator validator = null;
+
+            if (targetType == typeof(string))
+            {
+                validator = new ActionDependentRequired<string>(_actions, null, null);
+            }
+            else if (targetType == typeof(string[]))
+            {
+                validator = new ActionDependentRequired<string[]>(_actions, null, null);
+            }
+
+            if (validator == null)
+            {
+                throw new ArgumentException(
+                    "Can't create ActionDependentRequired validator for type {0}", targetType.FullName);
+            }
+
+            return validator;
         }
 
         #endregion

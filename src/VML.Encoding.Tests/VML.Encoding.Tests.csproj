@@ -62,9 +62,10 @@
   <ItemGroup>
     <Compile Include="Blueprints\EncodingQueryBlueprint.cs" />
     <Compile Include="EncodingQueryTests.cs" />
-    <Compile Include="EncodingSessionTests.theorydata.cs" />
+    <Compile Include="EncodingClientTests.theorydata.cs" />
     <Compile Include="EncodingClientTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Support\TestCredentials.cs" />
     <Compile Include="TheoryData\SourceFileRequiredQueryActions.cs" />
     <Compile Include="TheoryData\MediaIdRequiredQueryActions.cs" />
     <Compile Include="ValidationExtensionsTests.cs" />

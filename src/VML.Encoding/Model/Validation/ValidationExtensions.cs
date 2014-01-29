@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/28/2014 5:59 PM</created>
-//  <updated>01/28/2014 6:00 PM by Ben Ramey</updated>
+//  <updated>01/29/2014 9:30 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -21,25 +21,44 @@ namespace VML.Encoding.Model.Validation
     {
         #region Public Methods
 
+        /// <summary>
+        ///     Executes validation and returns true if valid and false if not.
+        /// </summary>
+        /// <typeparam name="T">Type of object to validate</typeparam>
+        /// <param name="objToValidate">Object to validate</param>
+        /// <returns>True if valid, false if not.</returns>
         public static bool IsValid<T>(this T objToValidate)
         {
-            return objToValidate.IsValid(false);
+            try
+            {
+                objToValidate.Validate();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
-        public static bool IsValid<T>(this T objToValidate, bool throwIfInvalid)
+        /// <summary>
+        ///     Performs validation and throws a ValidationException if the object is invalid.
+        /// </summary>
+        /// <typeparam name="T">Type of object to validate</typeparam>
+        /// <param name="objToValidate">Object to validate</param>
+        public static void Validate<T>(this T objToValidate)
         {
             Validator<T> validator = ValidationFactory.CreateValidator<T>();
             ValidationResults results = validator.Validate(objToValidate);
 
-            if (!results.IsValid && throwIfInvalid)
+            if (results.IsValid)
             {
-                string msg = string.Join("\n", results.Select(r => r.Message));
-                msg = string.Format("Invalid object! {0}", msg);
-
-                throw new ValidationException(msg);
+                return;
             }
 
-            return results.IsValid;
+            string msg = string.Join("\n", results.Select(r => r.Message));
+            msg = string.Format("Invalid object! {0}", msg);
+
+            throw new ValidationException(msg);
         }
 
         #endregion

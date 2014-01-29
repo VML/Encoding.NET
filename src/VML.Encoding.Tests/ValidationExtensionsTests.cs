@@ -66,14 +66,14 @@ namespace VML.Encoding.Tests
         [PropertyData("InvalidTestingObjects")]
         public void IsValid_Invalid_Throws(TestingObject obj)
         {
-            Assert.Throws<ValidationException>(() => obj.IsValid(true));
+            Assert.Throws<ValidationException>(() => obj.Validate());
         }
 
         [Theory]
         [PropertyData("ValidTestingObjects")]
         public void IsValid_Valid_DoesNotThrow(TestingObject obj)
         {
-            Assert.DoesNotThrow(() => obj.IsValid(true));
+            Assert.DoesNotThrow(obj.Validate);
         }
 
         [Theory]

@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/24/2014 12:31 PM</created>
-//  <updated>01/28/2014 6:00 PM by Ben Ramey</updated>
+//  <updated>01/29/2014 9:13 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -11,8 +11,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using VML.Encoding.Infrastructure;
 using VML.Encoding.Model;
+using VML.Encoding.Tests.Support;
 using VML.Encoding.Tests.TheoryData;
 using Xunit;
 using Xunit.Extensions;
@@ -25,58 +25,27 @@ namespace VML.Encoding.Tests
     {
         #region Public Methods
 
-        [Fact]
-        public void Constructor_EmptyUserId_ThrowsException()
+        [Theory]
+        [PropertyData("InvalidCredentials")]
+        public void Constructor_InvalidCredentials_ThrowsException(TestCredentials creds)
         {
-            Assert.Throws<ArgumentNullException>(() => new EncodingClient(string.Empty, "fake"));
-        }
-
-        [Fact]
-        public void Constructor_EmptyUserKey_ThrowsException()
-        {
-            Assert.Throws<ArgumentNullException>(() => new EncodingClient("fake", string.Empty));
-        }
-
-        [Fact]
-        public void Constructor_NullUserId_ThrowsException()
-        {
-            Assert.Throws<ArgumentNullException>(() => new EncodingClient(null, "fake"));
-        }
-
-        [Fact]
-        public void Constructor_NullUserKey_ThrowsException()
-        {
-            Assert.Throws<ArgumentNullException>(() => new EncodingClient("fake", null));
-        }
-
-        [Fact]
-        public void Constructor_WhitespaceUserId_ThrowsException()
-        {
-            Assert.Throws<ArgumentNullException>(() => new EncodingClient("  ", "fake"));
-        }
-
-        [Fact]
-        public void Constructor_WhitespaceUserKey_ThrowsException()
-        {
-            Assert.Throws<ArgumentNullException>(() => new EncodingClient("fake", "  "));
+            Assert.Throws<ValidationException>(() => new EncodingClient(creds));
         }
 
         [Fact]
         public void CreateQuery_ValidQuery()
         {
-            const string userId = "fake_userid";
-            const string userKey = "fake_userKey";
-
-            var session = new EncodingClient(userId, userKey);
-            EncodingQuery query = session.CreateQuery(QueryAction.AddMedia);
+            var creds = new TestCredentials();
+            var client = new EncodingClient(creds);
+            EncodingQuery query = client.CreateQuery(QueryAction.AddMedia);
 
             Assert.NotNull(query);
 
             Assert.NotNull(query.UserId);
-            Assert.Equal(userId, query.UserId);
+            Assert.Equal(creds.UserId, query.UserId);
 
             Assert.NotNull(query.UserKey);
-            Assert.Equal(userKey, query.UserKey);
+            Assert.Equal(creds.UserKey, query.UserKey);
 
             Assert.Equal(QueryAction.AddMedia, query.Action);
         }
@@ -85,11 +54,11 @@ namespace VML.Encoding.Tests
         [ClassData(typeof(MediaIdRequiredQueryActions))]
         public void Execute_InvalidQuery_ThrowsException(QueryAction action)
         {
-            var session = new EncodingClient("fake", "fake");
-            EncodingQuery query = session.CreateQuery(action);
+            var client = new EncodingClient(new TestCredentials());
+            EncodingQuery query = client.CreateQuery(action);
 
             Assert.Throws<ValidationException>(
-                () => session.Execute(query));
+                () => client.Execute(query));
         }
 
         #endregion

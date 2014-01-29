@@ -46,9 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Interfaces\IEncodingCredentials.cs" />
     <Compile Include="Model\QueryAction.cs" />
     <Compile Include="Model\EncodingQuery.cs" />
-    <Compile Include="Infrastructure\EncodingClient.cs" />
+    <Compile Include="EncodingClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Validation\Attributes\ActionDependentRequiredAttribute.cs" />
     <Compile Include="Model\Validation\ValidationExtensions.cs" />

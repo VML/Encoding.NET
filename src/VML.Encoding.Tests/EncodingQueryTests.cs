@@ -13,6 +13,7 @@ using System.Linq;
 using Plant.Core;
 using VML.Encoding.Model;
 using VML.Encoding.Model.Validation;
+using VML.Encoding.Tests.Support;
 using VML.Encoding.Tests.TheoryData;
 using Xunit;
 using Xunit.Extensions;
@@ -54,14 +55,14 @@ namespace VML.Encoding.Tests
         [Fact]
         public void NoUserId_Invalid()
         {
-            EncodingQuery query = _plant.Create<EncodingQuery>(new { UserId = string.Empty });
+            EncodingQuery query = _plant.Create<EncodingQuery>("nouserid");
             Assert.False(query.IsValid());
         }
 
         [Fact]
         public void NoUserKey_Invalid()
         {
-            EncodingQuery query = _plant.Create<EncodingQuery>(new { UserKey = string.Empty });
+            EncodingQuery query = _plant.Create<EncodingQuery>("nouserkey");
             Assert.False(query.IsValid());
         }
 
@@ -72,7 +73,7 @@ namespace VML.Encoding.Tests
             EncodingQuery query = _plant.Create<EncodingQuery>();
             Assert.True(query.IsValid());
 
-            query.SourceFile = string.Empty;
+            query.SourceFiles = new string[0];
             Assert.False(query.IsValid());
         }
 

@@ -2,8 +2,8 @@
 //  <copyright file="EncodingClient.cs" company="VML">
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
-//  <created>01/28/2014 5:59 PM</created>
-//  <updated>01/28/2014 6:00 PM by Ben Ramey</updated>
+//  <created>01/29/2014 8:59 AM</created>
+//  <updated>01/29/2014 9:31 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -11,36 +11,28 @@
 using System.Linq;
 using System;
 using VML.Encoding.Model;
+using VML.Encoding.Model.Interfaces;
 using VML.Encoding.Model.Validation;
 
 #endregion
 
-namespace VML.Encoding.Infrastructure
+namespace VML.Encoding
 {
     public class EncodingClient
     {
         #region Constants and Fields
 
-        private readonly string _userId;
-        private readonly string _userKey;
+        private readonly IEncodingCredentials _credentials;
 
         #endregion
 
         #region Constructors and Destructors
 
-        public EncodingClient(string userId, string userKey)
+        public EncodingClient(IEncodingCredentials credentials)
         {
-            if (string.IsNullOrWhiteSpace(userId))
-            {
-                throw new ArgumentNullException("userId");
-            }
-            if (string.IsNullOrWhiteSpace(userKey))
-            {
-                throw new ArgumentNullException("userKey");
-            }
+            credentials.Validate();
 
-            _userId = userId;
-            _userKey = userKey;
+            _credentials = credentials;
         }
 
         #endregion
@@ -49,7 +41,7 @@ namespace VML.Encoding.Infrastructure
 
         public EncodingQuery CreateQuery(QueryAction action)
         {
-            var query = new EncodingQuery(_userId, _userKey)
+            var query = new EncodingQuery(_credentials)
                 {
                     Action = action
                 };
@@ -59,10 +51,7 @@ namespace VML.Encoding.Infrastructure
 
         public bool Execute(EncodingQuery query)
         {
-            if (!query.IsValid(true))
-            {
-                return false;
-            }
+            query.Validate();
 
             return false;
         }

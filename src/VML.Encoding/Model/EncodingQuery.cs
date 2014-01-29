@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/28/2014 5:59 PM</created>
-//  <updated>01/28/2014 6:00 PM by Ben Ramey</updated>
+//  <updated>01/29/2014 9:14 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -11,6 +11,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System;
+using VML.Encoding.Model.Interfaces;
 using VML.Encoding.Model.Validation.Attributes;
 
 #endregion
@@ -21,10 +22,10 @@ namespace VML.Encoding.Model
     {
         #region Constructors and Destructors
 
-        public EncodingQuery(string userId, string userKey)
+        public EncodingQuery(IEncodingCredentials credentials)
         {
-            UserId = userId;
-            UserKey = userKey;
+            UserId = credentials.UserId;
+            UserKey = credentials.UserKey;
         }
 
         #endregion
@@ -42,7 +43,7 @@ namespace VML.Encoding.Model
         public string MediaId { get; set; }
 
         [ActionDependentRequired(QueryAction.AddMedia | QueryAction.AddMediaBenchmark)]
-        public string SourceFile { get; set; }
+        public string[] SourceFiles { get; set; }
 
         [Required]
         public string UserId { get; private set; }

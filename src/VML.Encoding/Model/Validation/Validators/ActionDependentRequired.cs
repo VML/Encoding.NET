@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/28/2014 5:59 PM</created>
-//  <updated>01/28/2014 6:00 PM by Ben Ramey</updated>
+//  <updated>01/29/2014 9:42 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -16,7 +16,7 @@ using Microsoft.Practices.EnterpriseLibrary.Validation;
 
 namespace VML.Encoding.Model.Validation.Validators
 {
-    public class ActionDependentRequired : Validator<string>
+    public class ActionDependentRequired<T> : Validator<T>
     {
         #region Constants and Fields
 
@@ -54,21 +54,55 @@ namespace VML.Encoding.Model.Validation.Validators
         #region Methods
 
         protected override void DoValidate(
-            string objectToValidate, object currentTarget, string key, ValidationResults validationResults)
+            T objectToValidate, object currentTarget, string key, ValidationResults validationResults)
         {
             EncodingQuery target = (EncodingQuery)currentTarget;
 
-            if ((target.Action & _actions) == target.Action
-                && string.IsNullOrWhiteSpace(objectToValidate))
+            if (typeof(T) == typeof(string))
             {
-                var result = new ValidationResult(
-                    MessageTemplate ?? DefaultMessageTemplate,
-                    this,
-                    key,
-                    "",
-                    null);
-                validationResults.AddResult(result);
+                string stringToValidate = objectToValidate as string;
+                ValidateString(stringToValidate, key, validationResults, target);
             }
+            else if (typeof(T) == typeof(string[]))
+            {
+                string[] arrayToValidate = objectToValidate as string[];
+                ValidateStringArray(arrayToValidate, key, validationResults, target);
+            }
+        }
+
+        private void AddInvalidResult(string key, ValidationResults validationResults)
+        {
+            var result = new ValidationResult(
+                MessageTemplate ?? DefaultMessageTemplate,
+                this,
+                key,
+                "",
+                null);
+            validationResults.AddResult(result);
+        }
+
+        private void ValidateString(
+            string objectToValidate, string key, ValidationResults validationResults, EncodingQuery target)
+        {
+            if ((target.Action & _actions) != target.Action
+                || !string.IsNullOrWhiteSpace(objectToValidate))
+            {
+                return;
+            }
+
+            AddInvalidResult(key, validationResults);
+        }
+
+        private void ValidateStringArray(
+            string[] arrayToValidate, string key, ValidationResults validationResults, EncodingQuery target)
+        {
+            if (arrayToValidate != null
+                && arrayToValidate.Length > 0)
+            {
+                return;
+            }
+
+            AddInvalidResult(key, validationResults);
         }
 
         #endregion
