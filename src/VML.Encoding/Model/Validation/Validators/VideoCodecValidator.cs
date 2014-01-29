@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 2:59 PM</created>
-//  <updated>01/29/2014 3:13 PM by Ben Ramey</updated>
+//  <updated>01/29/2014 4:15 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -19,7 +19,7 @@ using VML.Encoding.Model.Query;
 
 namespace VML.Encoding.Model.Validation.Validators
 {
-    public class ValidVideoCodec : BaseValidator<VideoCodec>
+    public class VideoCodecValidator : BaseValidator<VideoCodec>
     {
         #region Constants and Fields
 
@@ -61,7 +61,7 @@ namespace VML.Encoding.Model.Validation.Validators
 
         #region Constructors and Destructors
 
-        public ValidVideoCodec(string messageTemplate, string tag)
+        public VideoCodecValidator(string messageTemplate, string tag)
             : base(messageTemplate, tag)
         {
         }
@@ -74,7 +74,7 @@ namespace VML.Encoding.Model.Validation.Validators
         {
             get
             {
-                return "You must set a MediaId when performing a media action.";
+                return "You must set a valid video codec for the corresponding output value.";
             }
         }
 
@@ -87,7 +87,7 @@ namespace VML.Encoding.Model.Validation.Validators
         {
             Format target = (Format)currentTarget;
             bool validCodec = !ValidCodecMap.ContainsKey(target.Output)
-                              || (ValidCodecMap[target.Output] & target.VideoCodec) == target.VideoCodec;
+                              || (ValidCodecMap[target.Output] & objectToValidate) == objectToValidate;
 
             if (validCodec)
             {

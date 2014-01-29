@@ -1,8 +1,8 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="AudioCodec.cs" company="VML">
+//  <copyright file="FTyp.cs" company="VML">
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
-//  <created>01/29/2014 2:28 PM</created>
+//  <created>01/29/2014 4:01 PM</created>
 //  <updated>01/29/2014 4:02 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -15,23 +15,9 @@ using System;
 
 namespace VML.Encoding.Model.Enums
 {
-    public enum AudioCodec
+    public enum FTyp
     {
-        ac3,
-        libfaac,
-        dolby_aac,
-        dolby_heaac,
-        dolby_heaacv2,
-        eac3,
-        wmav2,
-        libmp3lame,
-        libvorbis,
-        libamr_nb,
-        pcm_s16be,
-        pcm_s16le,
-        mp2,
-        copy,
-        pcm_s24le,
-        pcm_s24l
+        mp42,
+        threegp5
     }
 }

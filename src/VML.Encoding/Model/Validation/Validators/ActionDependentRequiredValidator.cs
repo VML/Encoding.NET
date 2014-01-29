@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/28/2014 5:59 PM</created>
-//  <updated>01/29/2014 3:13 PM by Ben Ramey</updated>
+//  <updated>01/29/2014 4:02 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -18,7 +18,7 @@ using VML.Encoding.Model.Query;
 
 namespace VML.Encoding.Model.Validation.Validators
 {
-    public class ActionDependentRequired<T> : BaseValidator<T>
+    public class ActionDependentRequiredValidator<T> : BaseValidator<T>
     {
         #region Constants and Fields
 
@@ -28,13 +28,13 @@ namespace VML.Encoding.Model.Validation.Validators
 
         #region Constructors and Destructors
 
-        public ActionDependentRequired(QueryAction actions, string messageTemplate, string tag)
+        public ActionDependentRequiredValidator(QueryAction actions, string messageTemplate, string tag)
             : base(messageTemplate, tag)
         {
             _actions = actions;
         }
 
-        public ActionDependentRequired(string messageTemplate, string tag)
+        public ActionDependentRequiredValidator(string messageTemplate, string tag)
             : base(messageTemplate, tag)
         {
         }

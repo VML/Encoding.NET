@@ -64,6 +64,7 @@
     <Compile Include="Model\Enums\MediaStatus.cs" />
     <Compile Include="Model\Notification\Format.cs" />
     <Compile Include="Model\Notification\Result.cs" />
+    <Compile Include="Model\Enums\FTyp.cs" />
     <Compile Include="Model\Query\Logo.cs" />
     <Compile Include="Model\Query\Metadata.cs" />
     <Compile Include="Model\Query\Overlay.cs" />
@@ -78,13 +79,16 @@
     <Compile Include="Model\Query\EncodingQuery.cs" />
     <Compile Include="EncodingClient.cs" />
     <Compile Include="Model\Enums\TaskStatus.cs" />
-    <Compile Include="Model\Validation\Attributes\ValidVideoCodecAttribute.cs" />
+    <Compile Include="Model\Validation\Attributes\SizeValidatorAttribute.cs" />
+    <Compile Include="Model\Validation\Attributes\VideoCodecValidatorAttribute.cs" />
     <Compile Include="Model\Validation\Validators\BaseValidator.cs" />
-    <Compile Include="Model\Validation\Validators\ValidVideoCodec.cs" />
+    <Compile Include="Model\Validation\Validators\SizeValidator.cs" />
+    <Compile Include="Model\Validation\Validators\VideoCodecValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Validation\Attributes\ActionDependentRequiredAttribute.cs" />
     <Compile Include="Model\Validation\ValidationExtensions.cs" />
-    <Compile Include="Model\Validation\Validators\ActionDependentRequired.cs" />
+    <Compile Include="Model\Validation\Validators\ActionDependentRequiredValidator.cs" />
+    <Compile Include="Support\Extensions\EnumExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

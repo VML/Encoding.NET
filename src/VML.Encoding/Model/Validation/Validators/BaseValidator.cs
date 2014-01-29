@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 3:12 PM</created>
-//  <updated>01/29/2014 3:12 PM by Ben Ramey</updated>
+//  <updated>01/29/2014 4:02 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -18,10 +18,16 @@ namespace VML.Encoding.Model.Validation.Validators
 {
     public abstract class BaseValidator<T> : Validator<T>
     {
-        public BaseValidator(string messageTemplate, string tag)
+        #region Constructors and Destructors
+
+        protected BaseValidator(string messageTemplate, string tag)
             : base(messageTemplate, tag)
         {
         }
+
+        #endregion
+
+        #region Methods
 
         protected void AddInvalidResult(string key, ValidationResults validationResults)
         {
@@ -33,5 +39,7 @@ namespace VML.Encoding.Model.Validation.Validators
                 null);
             validationResults.AddResult(result);
         }
+
+        #endregion
     }
 }

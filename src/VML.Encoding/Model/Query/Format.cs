@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 2:14 PM</created>
-//  <updated>01/29/2014 3:13 PM by Ben Ramey</updated>
+//  <updated>01/29/2014 4:02 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -77,6 +77,9 @@ namespace VML.Encoding.Model.Query
 
         [XmlElement(ElementName = "duration")]
         public string Duration { get; set; }
+
+        [XmlElement(ElementName = "ftyp")]
+        public FTyp FTyp { get; set; }
 
         [XmlElement(ElementName = "fade_in")]
         public string FadeIn { get; set; }
@@ -163,6 +166,8 @@ namespace VML.Encoding.Model.Query
         public int? Sharpness { get; set; }
 
         [XmlElement(ElementName = "size")]
+        [IgnoreNulls]
+        [SizeValidator]
         public string Size { get; set; }
 
         [XmlElement(ElementName = "start")]
@@ -190,7 +195,7 @@ namespace VML.Encoding.Model.Query
         public int? VP6Profile { get; set; }
 
         [XmlElement(ElementName = "video_codec")]
-        [ValidVideoCodec]
+        [VideoCodecValidator]
         public VideoCodec VideoCodec { get; set; }
 
         [XmlElement(ElementName = "video_codec_parameters")]
