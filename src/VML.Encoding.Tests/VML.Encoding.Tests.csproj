@@ -60,7 +60,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasicCredentials.cs" />
     <Compile Include="BasicCredentialsTests.cs" />
     <Compile Include="Blueprints\EncodingQueryBlueprint.cs" />
     <Compile Include="EncodingQueryTests.cs" />

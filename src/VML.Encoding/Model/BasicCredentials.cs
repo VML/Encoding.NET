@@ -1,9 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// --------------------------------------------------------------------------------------------------------------------
+//  <copyright file="BasicCredentials.cs" company="VML">
+//   Copyright VML 2014. All rights reserved.
+//  </copyright>
+//  <created>01/29/2014 9:52 AM</created>
+//  <updated>01/29/2014 9:52 AM by Ben Ramey</updated>
+// --------------------------------------------------------------------------------------------------------------------
+
+#region Usings
+
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System;
 using VML.Encoding.Model.Interfaces;
 
-namespace VML.Encoding.Model
+#endregion
+
+namespace VML.Encoding.Tests
 {
     public class BasicCredentials : IEncodingCredentials
     {
