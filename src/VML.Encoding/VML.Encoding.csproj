@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,11 +48,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\BasicCredentials.cs" />
+    <Compile Include="Model\DestinationStatus.cs" />
+    <Compile Include="Model\EncodingNotification.cs" />
+    <Compile Include="Model\FormatDestination.cs" />
     <Compile Include="Model\Interfaces\IEncodingCredentials.cs" />
+    <Compile Include="Model\MediaStatus.cs" />
+    <Compile Include="Model\NotificationFormat.cs" />
+    <Compile Include="Model\NotificationResult.cs" />
+    <Compile Include="Model\Serialization\NotificationXmlSerializer.cs" />
     <Compile Include="Model\QueryFormat.cs" />
     <Compile Include="Model\QueryAction.cs" />
     <Compile Include="Model\EncodingQuery.cs" />
     <Compile Include="EncodingClient.cs" />
+    <Compile Include="Model\TaskStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Validation\Attributes\ActionDependentRequiredAttribute.cs" />
     <Compile Include="Model\Validation\ValidationExtensions.cs" />

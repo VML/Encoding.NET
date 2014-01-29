@@ -10,6 +10,7 @@
 
 using System.Linq;
 using System;
+using System.Runtime.Serialization;
 
 #endregion
 
