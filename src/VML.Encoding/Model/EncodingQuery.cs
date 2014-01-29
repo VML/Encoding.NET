@@ -11,11 +11,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System;
-using VML.Encoding.Validation.Attributes;
+using VML.Encoding.Model.Validation.Attributes;
 
 #endregion
 
-namespace VML.Encoding
+namespace VML.Encoding.Model
 {
     public class EncodingQuery
     {

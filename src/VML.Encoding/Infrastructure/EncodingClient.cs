@@ -10,11 +10,12 @@
 
 using System.Linq;
 using System;
-using VML.Encoding.Validation;
+using VML.Encoding.Model;
+using VML.Encoding.Model.Validation;
 
 #endregion
 
-namespace VML.Encoding
+namespace VML.Encoding.Infrastructure
 {
     public class EncodingClient
     {

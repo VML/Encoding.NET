@@ -11,6 +11,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using VML.Encoding.Infrastructure;
+using VML.Encoding.Model;
 using VML.Encoding.Tests.TheoryData;
 using Xunit;
 using Xunit.Extensions;
