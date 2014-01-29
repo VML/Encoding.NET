@@ -3,13 +3,14 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 9:49 AM</created>
-//  <updated>01/29/2014 9:56 AM by Ben Ramey</updated>
+//  <updated>01/29/2014 10:17 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
 
 using System;
 using System.Linq;
+using VML.Encoding.Model;
 using VML.Encoding.Model.Validation;
 using Xunit;
 using Xunit.Extensions;

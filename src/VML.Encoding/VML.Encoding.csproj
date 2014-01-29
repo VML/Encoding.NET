@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Model\BasicCredentials.cs" />
     <Compile Include="Model\Interfaces\IEncodingCredentials.cs" />
+    <Compile Include="Model\NotifyFormat.cs" />
     <Compile Include="Model\QueryAction.cs" />
     <Compile Include="Model\EncodingQuery.cs" />
     <Compile Include="EncodingClient.cs" />

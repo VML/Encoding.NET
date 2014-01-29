@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/24/2014 12:31 PM</created>
-//  <updated>01/28/2014 6:00 PM by Ben Ramey</updated>
+//  <updated>01/29/2014 10:17 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -13,7 +13,6 @@ using System.Linq;
 using Plant.Core;
 using VML.Encoding.Model;
 using VML.Encoding.Model.Validation;
-using VML.Encoding.Tests.Support;
 using VML.Encoding.Tests.TheoryData;
 using Xunit;
 using Xunit.Extensions;
@@ -64,6 +63,60 @@ namespace VML.Encoding.Tests
         {
             EncodingQuery query = _plant.Create<EncodingQuery>("nouserkey");
             Assert.False(query.IsValid());
+        }
+
+        [Theory]
+        [InlineData(" ")]
+        [InlineData("bob")]
+        public void NotifyEncodingErrors_InvalidUrl_IsInvalid(string url)
+        {
+            var query = _plant.Create<EncodingQuery>();
+            Assert.True(query.IsValid());
+
+            query.NotifyEncodingErrors = url;
+
+            Assert.False(query.IsValid());
+        }
+
+        [Theory]
+        [InlineData("http://bob.com")]
+        [InlineData("https://bob.com")]
+        [InlineData("mailto:joe@smith.com")]
+        public void NotifyEncodingErrors_ValidUrl_IsValid(string url)
+        {
+            var query = _plant.Create<EncodingQuery>();
+            Assert.True(query.IsValid());
+
+            query.NotifyEncodingErrors = url;
+
+            Assert.True(query.IsValid());
+        }
+
+        [Theory]
+        [InlineData(" ")]
+        [InlineData("bob")]
+        public void Notify_InvalidUrl_IsInvalid(string url)
+        {
+            var query = _plant.Create<EncodingQuery>();
+            Assert.True(query.IsValid());
+
+            query.Notify = url;
+
+            Assert.False(query.IsValid());
+        }
+
+        [Theory]
+        [InlineData("http://bob.com")]
+        [InlineData("https://bob.com")]
+        [InlineData("mailto:joe@smith.com")]
+        public void Notify_ValidUrl_IsValid(string url)
+        {
+            var query = _plant.Create<EncodingQuery>();
+            Assert.True(query.IsValid());
+
+            query.Notify = url;
+
+            Assert.True(query.IsValid());
         }
 
         [Theory]
