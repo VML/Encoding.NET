@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\BasicCredentials.cs" />
     <Compile Include="Model\Interfaces\IEncodingCredentials.cs" />
     <Compile Include="Model\QueryAction.cs" />
     <Compile Include="Model\EncodingQuery.cs" />
