@@ -1,8 +1,8 @@
-// --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="DestinationStatus.cs" company="VML">
+﻿// --------------------------------------------------------------------------------------------------------------------
+//  <copyright file="ForceInterlaced.cs" company="VML">
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
-//  <created>01/29/2014 2:13 PM</created>
+//  <created>01/29/2014 2:48 PM</created>
 //  <updated>01/29/2014 2:48 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -15,9 +15,10 @@ using System;
 
 namespace VML.Encoding.Model.Enums
 {
-    public enum DestinationStatus
+    public enum ForceInterlaced
     {
-        Saved,
-        Error
+        tff,
+        bff,
+        no
     }
 }

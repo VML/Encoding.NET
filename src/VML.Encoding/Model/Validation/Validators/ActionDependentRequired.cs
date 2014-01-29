@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/28/2014 5:59 PM</created>
-//  <updated>01/29/2014 2:16 PM by Ben Ramey</updated>
+//  <updated>01/29/2014 3:13 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -18,7 +18,7 @@ using VML.Encoding.Model.Query;
 
 namespace VML.Encoding.Model.Validation.Validators
 {
-    public class ActionDependentRequired<T> : Validator<T>
+    public class ActionDependentRequired<T> : BaseValidator<T>
     {
         #region Constants and Fields
 
@@ -70,17 +70,6 @@ namespace VML.Encoding.Model.Validation.Validators
                 string[] arrayToValidate = objectToValidate as string[];
                 ValidateStringArray(arrayToValidate, key, validationResults, target);
             }
-        }
-
-        private void AddInvalidResult(string key, ValidationResults validationResults)
-        {
-            var result = new ValidationResult(
-                MessageTemplate ?? DefaultMessageTemplate,
-                this,
-                key,
-                "",
-                null);
-            validationResults.AddResult(result);
         }
 
         private void ValidateString(

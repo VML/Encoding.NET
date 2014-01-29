@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 2:14 PM</created>
-//  <updated>01/29/2014 2:16 PM by Ben Ramey</updated>
+//  <updated>01/29/2014 2:48 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -60,9 +60,12 @@ namespace VML.Encoding.Model.Query
         public string NotifyEncodingErrors { get; set; }
 
         public QueryFormat NotifyFormat { get; set; }
+        public Region Region { get; set; }
 
         [ActionDependentRequired(QueryAction.AddMedia | QueryAction.AddMediaBenchmark)]
         public string[] SourceFiles { get; set; }
+
+        public SplitScreen SplitScreen { get; set; }
 
         [Required]
         public string UserId { get; private set; }
