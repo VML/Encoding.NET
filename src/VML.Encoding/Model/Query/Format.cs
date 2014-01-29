@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 2:14 PM</created>
-//  <updated>01/29/2014 4:02 PM by Ben Ramey</updated>
+//  <updated>01/29/2014 5:07 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -11,6 +11,7 @@
 using System.Linq;
 using System;
 using System.Xml.Serialization;
+using Microsoft.Practices.EnterpriseLibrary.Validation;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
 using VML.Encoding.Model.Enums;
 using VML.Encoding.Model.Validation.Attributes;
@@ -51,6 +52,8 @@ namespace VML.Encoding.Model.Query
         public string BFrames { get; set; }
 
         [XmlElement(ElementName = "bitrate")]
+        [IgnoreNulls]
+        [RegexValidator(@"^\d+k$")]
         public string Bitrate { get; set; }
 
         [XmlElement(ElementName = "bufsize")]
@@ -60,6 +63,9 @@ namespace VML.Encoding.Model.Query
         [RangeValidator(
             1, RangeBoundaryType.Inclusive, 2, RangeBoundaryType.Inclusive, ErrorMessage = "{1} must be either 1 or 2")]
         public int CXMode { get; set; }
+
+        [XmlElement(ElementName = "cbr")]
+        public bool? ConstantBitrate { get; set; }
 
         [XmlElement(ElementName = "crop_bottom")]
         public string CropBottom { get; set; }
@@ -76,7 +82,9 @@ namespace VML.Encoding.Model.Query
         public string[] Destinations { get; set; }
 
         [XmlElement(ElementName = "duration")]
-        public string Duration { get; set; }
+        [IgnoreNulls]
+        [RangeValidator(0, RangeBoundaryType.Inclusive, 0, RangeBoundaryType.Ignore)]
+        public int? Duration { get; set; }
 
         [XmlElement(ElementName = "ftyp")]
         public FTyp FTyp { get; set; }
@@ -87,13 +95,28 @@ namespace VML.Encoding.Model.Query
         [XmlElement(ElementName = "fade_out")]
         public string FadeOut { get; set; }
 
+        [XmlElement(ElementName = "finish")]
+        [IgnoreNulls]
+        [ValidatorComposition(CompositionType.Or)]
+        [RegexValidator(@"^\d+\.?\d*$")]
+        [RegexValidator(@"^\d{2}:\d{2}:\d{2}(:|;)\d{2}$")]
+        public string Finish { get; set; }
+
         [XmlElement(ElementName = "force_interlaced")]
         public ForceInterlaced ForceInterlaced { get; set; }
 
         [XmlElement(ElementName = "framerate")]
+        [IgnoreNulls]
+        [ValidatorComposition(CompositionType.Or)]
+        [RegexValidator(@"^\d+$")]
+        [RegexValidator(@"^\d+/\d+$")]
         public string Framerate { get; set; }
 
         [XmlElement(ElementName = "framerate_upper_threshold")]
+        [IgnoreNulls]
+        [ValidatorComposition(CompositionType.Or)]
+        [RegexValidator(@"^\d+$")]
+        [RegexValidator(@"^\d+/\d+$")]
         public string FramerateUpperThreshold { get; set; }
 
         [XmlElement(ElementName = "gop")]
@@ -109,7 +132,7 @@ namespace VML.Encoding.Model.Query
         public int? KFintType { get; set; }
 
         [XmlElement(ElementName = "keep_aspect_ratio")]
-        public bool KeepAspectRatio { get; set; }
+        public bool? KeepAspectRatio { get; set; }
 
         [XmlElement(ElementName = "keyframe")]
         [RangeValidator(
@@ -124,12 +147,16 @@ namespace VML.Encoding.Model.Query
         public Logo Logo { get; set; }
 
         [XmlElement(ElementName = "maxrate")]
+        [IgnoreNulls]
+        [RegexValidator(@"^\d+k?$")]
         public string MaxRate { get; set; }
 
         [XmlElement(ElementName = "metadata")]
         public Metadata Metadata { get; set; }
 
         [XmlElement(ElementName = "minrate")]
+        [IgnoreNulls]
+        [RegexValidator(@"^\d+k?$")]
         public string MinRate { get; set; }
 
         [XmlElement(ElementName = "noise_reduction")]
@@ -153,6 +180,11 @@ namespace VML.Encoding.Model.Query
         public string Rotate { get; set; }
 
         [XmlElement(ElementName = "set_aspect_ratio")]
+        [IgnoreNulls]
+        [ValidatorComposition(CompositionType.Or)]
+        [RegexValidator(@"^\d+\.?\d*$")]
+        [RegexValidator(@"^\d+:\d+$")]
+        [RegexValidator(@"^source$")]
         public string SetAspectRatio { get; set; }
 
         [XmlElement(ElementName = "set_rotate")]
@@ -171,6 +203,10 @@ namespace VML.Encoding.Model.Query
         public string Size { get; set; }
 
         [XmlElement(ElementName = "start")]
+        [IgnoreNulls]
+        [ValidatorComposition(CompositionType.Or)]
+        [RegexValidator(@"^\d+\.?\d*$")]
+        [RegexValidator(@"^\d{2}:\d{2}:\d{2}(:|;)\d{2}$")]
         public string Start { get; set; }
 
         [XmlElement(ElementName = "strip_chapters")]

@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 3:14 PM</created>
-//  <updated>01/29/2014 4:43 PM by Ben Ramey</updated>
+//  <updated>01/29/2014 5:08 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -41,6 +41,77 @@ namespace VML.Encoding.Tests
         #region Public Methods
 
         [Theory]
+        [InlineData("103")]
+        [InlineData("2.3k")]
+        public void InvalidBitrate_IsInvalid(string bitrate)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Bitrate = bitrate;
+
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData(-10)]
+        public void InvalidDuration_IsInvalid(int duration)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Duration = duration;
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData("-1")]
+        [InlineData("1/-3")]
+        [InlineData("-20/3")]
+        public void InvalidFramerate_IsInvalid(string framerate)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Framerate = framerate;
+            Assert.False(format.IsValid());
+
+            format.Framerate = null;
+            format.FramerateUpperThreshold = framerate;
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData("330.2")]
+        [InlineData("2.3k")]
+        public void InvalidMaxRateAndMinRate_IsInvalid(string rate)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.MaxRate = rate;
+            Assert.False(format.IsValid());
+
+            format.MaxRate = null;
+            format.MinRate = rate;
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData("bob")]
+        [InlineData("1.2:3")]
+        [InlineData("1:3.3")]
+        public void InvalidSetAspectRatios_IsInvalid(string aspectRatio)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.SetAspectRatio = aspectRatio;
+
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
         [InlineData(FormatOutput.flv, "2x5")]
         [InlineData(FormatOutput.flv, "3x4")]
         [InlineData(FormatOutput.threegp, "2x4")]
@@ -59,6 +130,22 @@ namespace VML.Encoding.Tests
         }
 
         [Theory]
+        [InlineData("-12")]
+        [InlineData("-22.123")]
+        public void InvalidStartFinish_IsInvalid(string startOrFinish)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Start = startOrFinish;
+            Assert.False(format.IsValid());
+
+            format.Start = null;
+            format.Finish = startOrFinish;
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
         [InlineData(FormatOutput.flv, VideoCodec.h263)]
         [InlineData(FormatOutput.mp4, VideoCodec.libtheora)]
         [InlineData(FormatOutput.webm, VideoCodec.none)]
@@ -72,6 +159,76 @@ namespace VML.Encoding.Tests
             format.VideoCodec = codec;
 
             Assert.False(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData("103k")]
+        public void ValidBitrate_IsValid(string bitrate)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Bitrate = bitrate;
+
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(200)]
+        [InlineData(0)]
+        public void ValidDuration_IsValid(int duration)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Duration = duration;
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData("1")]
+        [InlineData("200/239")]
+        [InlineData("2392")]
+        public void ValidFramerate_IsValid(string framerate)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Framerate = framerate;
+            Assert.True(format.IsValid());
+
+            format.FramerateUpperThreshold = framerate;
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData("103k")]
+        [InlineData("103")]
+        public void ValidMaxRateAndMinRate_IsValid(string rate)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.MaxRate = rate;
+            Assert.True(format.IsValid());
+
+            format.MinRate = rate;
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData("source")]
+        [InlineData("1:3")]
+        [InlineData("1.23")]
+        public void ValidSetAspectRatios_IsValid(string aspectRatio)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.SetAspectRatio = aspectRatio;
+
+            Assert.True(format.IsValid());
         }
 
         [Theory]
@@ -102,6 +259,23 @@ namespace VML.Encoding.Tests
             format.Output = output;
             format.Size = size;
 
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData("1.2")]
+        [InlineData("23")]
+        [InlineData("12:20:22:21")]
+        [InlineData("12:20:22;21")]
+        public void ValidStartFinish_IsValid(string startOrFinish)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Start = startOrFinish;
+            Assert.True(format.IsValid());
+
+            format.Finish = startOrFinish;
             Assert.True(format.IsValid());
         }
 
