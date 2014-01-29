@@ -2,8 +2,8 @@
 //  <copyright file="EncodingQueryTests.cs" company="VML">
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
-//  <created>01/23/2014 9:31 AM</created>
-//  <updated>01/23/2014 12:34 PM by Ben Ramey</updated>
+//  <created>01/24/2014 12:31 PM</created>
+//  <updated>01/28/2014 6:00 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
