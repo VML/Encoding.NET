@@ -1,8 +1,20 @@
+// --------------------------------------------------------------------------------------------------------------------
+//  <copyright file="NotificationXmlSerializer.cs" company="VML">
+//   Copyright VML 2014. All rights reserved.
+//  </copyright>
+//  <created>01/29/2014 11:59 AM</created>
+//  <updated>01/29/2014 1:16 PM by Ben Ramey</updated>
+// --------------------------------------------------------------------------------------------------------------------
+
+#region Usings
+
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System;
 using System.Xml.Serialization;
+
+#endregion
 
 namespace VML.Encoding.Model.Serialization
 {
@@ -50,7 +62,7 @@ namespace VML.Encoding.Model.Serialization
 
         #region Public Methods
 
-        public static NotificationResult Deserialize(string xml)
+        public static EncodingNotification Deserialize(string xml)
         {
             NotificationXmlSerializer serializer = new NotificationXmlSerializer();
 
@@ -61,7 +73,7 @@ namespace VML.Encoding.Model.Serialization
                 result.Format.Destinations = serializer.Destinations;
             }
 
-            return result;
+            return new EncodingNotification { Result = result };
         }
 
         #endregion

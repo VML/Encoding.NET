@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 10:29 AM</created>
-//  <updated>01/29/2014 12:03 PM by Ben Ramey</updated>
+//  <updated>01/29/2014 12:41 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -11,6 +11,7 @@
 using System;
 using System.Linq;
 using System.Xml;
+using Newtonsoft.Json.Linq;
 using VML.Encoding.Model;
 using VML.Encoding.Model.Serialization;
 using Xunit;
@@ -25,14 +26,39 @@ namespace VML.Encoding.Tests
         #region Public Methods
 
         [Theory]
+        [PropertyData("JsonResults")]
+        public void Parse_JsonString_IsValid(string json)
+        {
+            var response = EncodingNotification.Parse(json, QueryFormat.JSON);
+            CompareJsonAndNotificationResult(json, response.Result);
+        }
+
+        [Theory]
+        [PropertyData("XmlResults")]
+        public void Parse_XmlString_IsValid(string xml)
+        {
+            var response = EncodingNotification.Parse(xml, QueryFormat.XML);
+            CompareXmlAndNotificationResult(xml, response.Result);
+        }
+
+        [Theory]
         [PropertyData("XmlResults")]
         public void XmlResults_ParsesCorrectly(string xml)
         {
-            NotificationResult result = null;
+            EncodingNotification notification = null;
 
-            Assert.DoesNotThrow(() => result = NotificationXmlSerializer.Deserialize(xml));
-            Assert.NotNull(result);
+            Assert.DoesNotThrow(() => notification = NotificationXmlSerializer.Deserialize(xml));
+            Assert.NotNull(notification);
 
+            CompareXmlAndNotificationResult(xml, notification.Result);
+        }
+
+        #endregion
+
+        #region Methods
+
+        private static void CompareXmlAndNotificationResult(string xml, NotificationResult result)
+        {
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(xml);
 
@@ -75,6 +101,34 @@ namespace VML.Encoding.Tests
             {
                 Assert.Equal(destinationUrls[idx], result.Format.Destinations[idx].Destination);
                 Assert.Equal(destinationStatus[idx], result.Format.Destinations[idx].DestinationStatus);
+            }
+        }
+
+        private void CompareJsonAndNotificationResult(string jsonString, NotificationResult result)
+        {
+            dynamic json = JObject.Parse(jsonString);
+
+            Assert.Equal((string)json.result.mediaid, result.MediaId);
+            Assert.Equal((string)json.result.source, result.Source);
+            Assert.Equal((MediaStatus)json.result.status, result.Status);
+            Assert.Equal((string)json.result.description, result.Description);
+            Assert.Equal((QueryFormat)json.result.format.output, result.Format.Output);
+            Assert.Equal((TaskStatus)json.result.format.status, result.Format.Status);
+            Assert.Equal((string)json.result.format.description, result.Format.Description);
+            Assert.Equal((string)json.result.format.suggestion, result.Format.Suggestion);
+
+            string[] urls = ((JArray)json.result.format.destination).Select(d => d.Value<string>()).ToArray();
+            DestinationStatus[] statuses = ((JArray)json.result.format.destination_status)
+                .Select(ds => (DestinationStatus)Enum.Parse(typeof(DestinationStatus), ds.Value<string>()))
+                .ToArray();
+
+            Assert.NotNull(result.Format.Destinations);
+            Assert.Equal(urls.Length, result.Format.Destinations.Length);
+
+            for (int idx = 0; idx < urls.Length; idx++)
+            {
+                Assert.Equal(urls[idx], result.Format.Destinations[idx].Destination);
+                Assert.Equal(statuses[idx], result.Format.Destinations[idx].DestinationStatus);
             }
         }
 
