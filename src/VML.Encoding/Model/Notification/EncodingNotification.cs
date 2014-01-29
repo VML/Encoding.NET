@@ -2,28 +2,28 @@
 //  <copyright file="EncodingNotification.cs" company="VML">
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
-//  <created>01/29/2014 10:41 AM</created>
-//  <updated>01/29/2014 12:29 PM by Ben Ramey</updated>
+//  <created>01/29/2014 2:13 PM</created>
+//  <updated>01/29/2014 2:16 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
 
 using System.Linq;
 using System;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using VML.Encoding.Model.Enums;
 using VML.Encoding.Model.Serialization;
 
 #endregion
 
-namespace VML.Encoding.Model
+namespace VML.Encoding.Model.Notification
 {
     [JsonConverter(typeof(NotificationJsonConverter))]
     public class EncodingNotification
     {
         #region Public Properties
 
-        public NotificationResult Result { get; set; }
+        public Result Result { get; set; }
 
         #endregion
 
@@ -44,11 +44,9 @@ namespace VML.Encoding.Model
                 default:
                     throw new ArgumentOutOfRangeException("queryFormat");
             }
-            
+
             return notification;
         }
-
-
 
         #endregion
     }

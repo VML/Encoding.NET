@@ -2,8 +2,8 @@
 //  <copyright file="QueryAction.cs" company="VML">
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
-//  <created>01/28/2014 5:59 PM</created>
-//  <updated>01/29/2014 10:42 AM by Ben Ramey</updated>
+//  <created>01/29/2014 2:12 PM</created>
+//  <updated>01/29/2014 2:16 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -13,7 +13,7 @@ using System.Linq;
 
 #endregion
 
-namespace VML.Encoding.Model
+namespace VML.Encoding.Model.Enums
 {
     /// <summary>
     ///     Available encoding.com query actions.  http://www.encoding.com/api#ActionList

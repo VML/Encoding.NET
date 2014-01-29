@@ -12,6 +12,8 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using VML.Encoding.Model;
+using VML.Encoding.Model.Enums;
+using VML.Encoding.Model.Query;
 using VML.Encoding.Tests.Support;
 using VML.Encoding.Tests.TheoryData;
 using Xunit;

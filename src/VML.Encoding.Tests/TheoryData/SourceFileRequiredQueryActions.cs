@@ -13,6 +13,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using VML.Encoding.Model;
+using VML.Encoding.Model.Enums;
 
 #endregion
 

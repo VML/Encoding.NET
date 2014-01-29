@@ -1,9 +1,9 @@
 // --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="NotificationFormat.cs" company="VML">
+//  <copyright file="Format.cs" company="VML">
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
-//  <created>01/29/2014 10:41 AM</created>
-//  <updated>01/29/2014 1:11 PM by Ben Ramey</updated>
+//  <created>01/29/2014 2:15 PM</created>
+//  <updated>01/29/2014 2:16 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -11,14 +11,13 @@
 using System.Linq;
 using System;
 using System.Xml.Serialization;
-using Newtonsoft.Json;
-using VML.Encoding.Model.Serialization;
+using VML.Encoding.Model.Enums;
 
 #endregion
 
-namespace VML.Encoding.Model
+namespace VML.Encoding.Model.Notification
 {
-    public class NotificationFormat
+    public class Format
     {
         #region Public Properties
 

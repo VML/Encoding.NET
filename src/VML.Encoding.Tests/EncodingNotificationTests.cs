@@ -13,6 +13,8 @@ using System.Linq;
 using System.Xml;
 using Newtonsoft.Json.Linq;
 using VML.Encoding.Model;
+using VML.Encoding.Model.Enums;
+using VML.Encoding.Model.Notification;
 using VML.Encoding.Model.Serialization;
 using Xunit;
 using Xunit.Extensions;
@@ -57,7 +59,7 @@ namespace VML.Encoding.Tests
 
         #region Methods
 
-        private static void CompareXmlAndNotificationResult(string xml, NotificationResult result)
+        private static void CompareXmlAndNotificationResult(string xml, Result result)
         {
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(xml);
@@ -99,12 +101,12 @@ namespace VML.Encoding.Tests
 
             for (int idx = 0; idx < destinationUrls.Length; idx++)
             {
-                Assert.Equal(destinationUrls[idx], result.Format.Destinations[idx].Destination);
-                Assert.Equal(destinationStatus[idx], result.Format.Destinations[idx].DestinationStatus);
+                Assert.Equal(destinationUrls[idx], result.Format.Destinations[idx].Url);
+                Assert.Equal(destinationStatus[idx], result.Format.Destinations[idx].Status);
             }
         }
 
-        private void CompareJsonAndNotificationResult(string jsonString, NotificationResult result)
+        private void CompareJsonAndNotificationResult(string jsonString, Result result)
         {
             dynamic json = JObject.Parse(jsonString);
 
@@ -127,8 +129,8 @@ namespace VML.Encoding.Tests
 
             for (int idx = 0; idx < urls.Length; idx++)
             {
-                Assert.Equal(urls[idx], result.Format.Destinations[idx].Destination);
-                Assert.Equal(statuses[idx], result.Format.Destinations[idx].DestinationStatus);
+                Assert.Equal(urls[idx], result.Format.Destinations[idx].Url);
+                Assert.Equal(statuses[idx], result.Format.Destinations[idx].Status);
             }
         }
 

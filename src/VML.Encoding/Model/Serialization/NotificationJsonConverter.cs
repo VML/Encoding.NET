@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 12:43 PM</created>
-//  <updated>01/29/2014 1:25 PM by Ben Ramey</updated>
+//  <updated>01/29/2014 2:16 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -12,6 +12,8 @@ using System;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using VML.Encoding.Model.Enums;
+using VML.Encoding.Model.Notification;
 
 #endregion
 
@@ -33,10 +35,10 @@ namespace VML.Encoding.Model.Serialization
 
             dynamic json = JObject.Load(reader);
 
-            notification.Result = new NotificationResult
+            notification.Result = new Result
                 {
                     Description = (string)json.result.description,
-                    Format = new NotificationFormat
+                    Format = new Format
                         {
                             Description = (string)json.result.format.description,
                             Output = json.result.format.output,
@@ -61,8 +63,8 @@ namespace VML.Encoding.Model.Serialization
             {
                 notification.Result.Format.Destinations[idx] = new FormatDestination
                     {
-                        Destination = destinations[idx],
-                        DestinationStatus = statuses[idx]
+                        Url = destinations[idx],
+                        Status = statuses[idx]
                     };
             }
 

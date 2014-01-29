@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 11:59 AM</created>
-//  <updated>01/29/2014 1:16 PM by Ben Ramey</updated>
+//  <updated>01/29/2014 2:16 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -13,6 +13,8 @@ using System.IO;
 using System.Linq;
 using System;
 using System.Xml.Serialization;
+using VML.Encoding.Model.Enums;
+using VML.Encoding.Model.Notification;
 
 #endregion
 
@@ -30,7 +32,7 @@ namespace VML.Encoding.Model.Serialization
         #region Constructors and Destructors
 
         public NotificationXmlSerializer()
-            : base(typeof(NotificationResult), "")
+            : base(typeof(Result), "")
         {
             _destinationUrls = new List<string>();
             _destinationStatuses = new List<string>();
@@ -50,8 +52,8 @@ namespace VML.Encoding.Model.Serialization
                         (url, idx) =>
                         new FormatDestination
                             {
-                                Destination = url,
-                                DestinationStatus =
+                                Url = url,
+                                Status =
                                     (DestinationStatus)Enum.Parse(typeof(DestinationStatus), _destinationStatuses[idx])
                             })
                                     .ToArray();
@@ -66,10 +68,10 @@ namespace VML.Encoding.Model.Serialization
         {
             NotificationXmlSerializer serializer = new NotificationXmlSerializer();
 
-            NotificationResult result;
+            Result result;
             using (TextReader reader = new StringReader(xml))
             {
-                result = (NotificationResult)serializer.Deserialize(reader);
+                result = (Result)serializer.Deserialize(reader);
                 result.Format.Destinations = serializer.Destinations;
             }
 

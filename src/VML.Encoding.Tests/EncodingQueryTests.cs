@@ -12,6 +12,8 @@ using System;
 using System.Linq;
 using Plant.Core;
 using VML.Encoding.Model;
+using VML.Encoding.Model.Enums;
+using VML.Encoding.Model.Query;
 using VML.Encoding.Model.Validation;
 using VML.Encoding.Tests.TheoryData;
 using Xunit;
