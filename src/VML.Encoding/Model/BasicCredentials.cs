@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 9:52 AM</created>
-//  <updated>01/29/2014 10:17 AM by Ben Ramey</updated>
+//  <updated>01/29/2014 10:42 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -11,7 +11,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System;
-using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
 using VML.Encoding.Model.Interfaces;
 
 #endregion
