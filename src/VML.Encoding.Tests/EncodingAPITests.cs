@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/30/2014 2:23 PM</created>
-//  <updated>01/30/2014 4:01 PM by Ben Ramey</updated>
+//  <updated>01/30/2014 4:43 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -45,6 +45,12 @@ namespace VML.Encoding.Tests
                 .Execute(Arg.Is<EncodingQuery>(eq => eq.Action == QueryAction.GetMediaList))
                 .Returns(
                     "{\"response\":{\"media\":[{\"mediafile\":\"sourcefile\",\"mediaid\":\"mediaid\",\"mediastatus\":\"mediastatus\",\"createdate\":\"2013-01-01 12:12:12\",\"startdate\":\"2013-01-01 12:12:12\",\"finishdate\":\"2013-01-01 12:12:12\"}]}}");
+            // getstatus response
+            client
+                .Execute(Arg.Is<EncodingQuery>(eq => eq.Action == QueryAction.GetStatus))
+                .Returns(
+                    @"{""response"":{""id"":""[MediaID]"",""userid"":""[UserID]"",""sourcefile"":""[SourceFile]"",""status"":""[MediaStatus]"",""notifyurl"":""[NotifyURL]"",""created"":""2013-1-1"",""started"":""2013-1-1"",""finished"":""2013-1-1"",""prevstatus"":""[MediaStatus]"",""downloaded"":""2013-1-1"",""uploaded"":""2013-1-1"",""time_left"":""[TotalTimeLeft]"",""progress"":""[TotalProgress]"",""time_left_current"":""[StatusTimeLeft]"",""progress_current"":""[StatusProgress]"",""format"":[{""id"":""[ID]"",""status"":""[Status]"",""created"":""2013-1-1"",""started"":""2013-1-1"",""finished"":""2013-1-1"",""s3_destination"":""[TempS3Link]"",""cf_destination"":""[TempCFLink]"",""destination"":[""[URL]"",""[URL_2]"",""[URL_N]""],""destination_status"":[""[Saved|Error(ErrorDescription)]"",""[Saved|Error(ErrorDescription)]"",""[Saved|Error(ErrorDescription)]""]},]}}");
+            
 
             _api = new EncodingAPI(client);
             _plant = new BasePlant().WithBlueprintsFromAssemblyOf<EncodingQueryTests>();
@@ -90,6 +96,22 @@ namespace VML.Encoding.Tests
         public void GetMediaList_NullQuery_Throws()
         {
             Assert.Throws<ArgumentNullException>(() => _api.GetMediaList(null));
+        }
+
+        [Fact]
+        public void GetStatus()
+        {
+            var query = _plant.Create<EncodingQuery>();
+            GetStatusResponse response = _api.GetStatus(query);
+
+            Assert.NotNull(response);
+            Assert.Equal("[MediaID]", response.ID);
+        }
+
+        [Fact]
+        public void GetStatus_NullQuery_Throws()
+        {
+            Assert.Throws<ArgumentNullException>(() => _api.GetStatus(null));
         }
 
         #endregion

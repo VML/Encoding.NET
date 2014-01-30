@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/30/2014 2:23 PM</created>
-//  <updated>01/30/2014 4:01 PM by Ben Ramey</updated>
+//  <updated>01/30/2014 4:43 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -70,6 +70,16 @@ namespace VML.Encoding
 
             query.Action = QueryAction.GetMediaList;
             return ExecuteQuery<GetMediaListResponse>(query);
+        }
+
+        public GetStatusResponse GetStatus(EncodingQuery query)
+        {
+            if (query == null)
+            {
+                throw new ArgumentNullException("query");
+            }
+            query.Action = QueryAction.GetStatus;
+            return ExecuteQuery<GetStatusResponse>(query);
         }
 
         #endregion

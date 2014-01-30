@@ -78,6 +78,7 @@
     <Compile Include="Model\Enums\FTyp.cs" />
     <Compile Include="Model\Enums\Profile.cs" />
     <Compile Include="Model\Enums\VideoCodec.cs" />
+    <Compile Include="Model\Query\Response\GetStatusResponse.cs" />
     <Compile Include="Model\Query\Response\GetMediaListResponse.cs" />
     <Compile Include="Model\Query\Response\ResponseWrapper.cs" />
     <Compile Include="Model\Serialization\NotificationJsonConverter.cs" />

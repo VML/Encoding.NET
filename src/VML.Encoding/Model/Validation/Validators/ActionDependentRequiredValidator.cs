@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/28/2014 5:59 PM</created>
-//  <updated>01/30/2014 4:01 PM by Ben Ramey</updated>
+//  <updated>01/30/2014 5:06 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -89,7 +89,8 @@ namespace VML.Encoding.Model.Validation.Validators
             IList<Uri> arrayToValidate, string key, ValidationResults validationResults, EncodingQuery target)
         {
             if (arrayToValidate != null
-                && arrayToValidate.Count > 0)
+                && (arrayToValidate.Count > 0
+                    || (target.Action & _actions) != target.Action))
             {
                 return;
             }

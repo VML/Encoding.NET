@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/24/2014 12:31 PM</created>
-//  <updated>01/30/2014 4:01 PM by Ben Ramey</updated>
+//  <updated>01/30/2014 4:54 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -62,7 +62,7 @@ namespace VML.Encoding.Tests
         public void MediaIdRequiredActions_NoMediaId_IsInvalid(QueryAction action)
         {
             EncodingQuery query = _plant.Create<EncodingQuery>();
-            Assert.True(query.IsValid());
+            query.Validate();
 
             query.MediaId = string.Empty;
             Assert.False(query.IsValid());
@@ -88,7 +88,7 @@ namespace VML.Encoding.Tests
         public void NotifyEncodingErrors_InvalidUrl_IsInvalid(string url)
         {
             var query = _plant.Create<EncodingQuery>();
-            Assert.True(query.IsValid());
+            query.Validate();
 
             query.NotifyEncodingErrors = url;
 
@@ -102,7 +102,7 @@ namespace VML.Encoding.Tests
         public void NotifyEncodingErrors_ValidUrl_IsValid(string url)
         {
             var query = _plant.Create<EncodingQuery>();
-            Assert.True(query.IsValid());
+            query.Validate();
 
             query.NotifyEncodingErrors = url;
 
@@ -115,7 +115,7 @@ namespace VML.Encoding.Tests
         public void Notify_InvalidUrl_IsInvalid(string url)
         {
             var query = _plant.Create<EncodingQuery>();
-            Assert.True(query.IsValid());
+            query.Validate();
 
             query.Notify = url;
 
@@ -129,7 +129,7 @@ namespace VML.Encoding.Tests
         public void Notify_ValidUrl_IsValid(string url)
         {
             var query = _plant.Create<EncodingQuery>();
-            Assert.True(query.IsValid());
+            query.Validate();
 
             query.Notify = url;
 
@@ -141,10 +141,20 @@ namespace VML.Encoding.Tests
         public void SourceFileRequiredActions_NoSourceFile_IsInvalid(QueryAction action)
         {
             EncodingQuery query = _plant.Create<EncodingQuery>();
-            Assert.True(query.IsValid());
+            query.Validate();
 
             query.SourceFiles = new List<Uri>();
             Assert.False(query.IsValid());
+        }
+
+        [Fact]
+        public void SourceFile_NotRequiredAction_IsValid()
+        {
+            EncodingQuery query = _plant.Create<EncodingQuery>();
+            query.Validate();
+
+            query.Action = QueryAction.GetStatus;
+            Assert.True(query.IsValid());
         }
 
         #endregion
