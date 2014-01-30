@@ -83,6 +83,7 @@
     <Compile Include="Model\Validation\Validators\BaseValidator.cs" />
     <Compile Include="Model\Validation\Validators\AudioCodecValidator.cs" />
     <Compile Include="Model\Validation\Validators\AudioBitrateValidator.cs" />
+    <Compile Include="Model\Validation\Validators\AudioSampleRateValidator.cs" />
     <Compile Include="Model\Validation\Validators\SizeValidator.cs" />
     <Compile Include="Model\Validation\Validators\VideoCodecValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

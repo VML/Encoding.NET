@@ -48,7 +48,10 @@ namespace VML.Encoding.Model.Query
         public string AudioNormalization { get; set; }
 
         [XmlElement(ElementName = "audio_sample_rate")]
-        public int AudioSampleRate { get; set; }
+        [IgnoreNulls]
+        [RangeValidator(1, RangeBoundaryType.Inclusive, 0, RangeBoundaryType.Ignore)]
+        [EncodingValidator(typeof(AudioSampleRateValidator))]
+        public int? AudioSampleRate { get; set; }
 
         [XmlElement(ElementName = "audio_sync")]
         public string AudioSync { get; set; }

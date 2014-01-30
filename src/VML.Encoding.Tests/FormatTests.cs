@@ -40,6 +40,40 @@ namespace VML.Encoding.Tests
 
         #region Public Methods
         [Theory]
+        [InlineData(FormatOutput.roku_hls, -100)]
+        [InlineData(FormatOutput.threegp, 9000)]
+        [InlineData(FormatOutput.flv, 10000)]
+        [InlineData(FormatOutput.mp3, 29921)]
+        [InlineData(FormatOutput.webm, 15000)]
+        public void InvalidAudioSampleRate_IsInvalid(FormatOutput output, int rate)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Output = output;
+            format.AudioSampleRate = rate;
+
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData(FormatOutput.roku_hls, 100)]
+        [InlineData(FormatOutput.threegp, 8000)]
+        [InlineData(FormatOutput.flv, 11025)]
+        [InlineData(FormatOutput.mp3, 44100)]
+        [InlineData(FormatOutput.mpeg2, 48000)]
+        public void ValidAudioSampleRate_IsValid(FormatOutput output, int rate)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Output = output;
+            format.AudioSampleRate = rate;
+
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
         [InlineData(FormatOutput.roku_hls, "4.75k")]
         [InlineData(FormatOutput.threegp, "5.25k")]
         [InlineData(FormatOutput.threegp, "2.2k")]
