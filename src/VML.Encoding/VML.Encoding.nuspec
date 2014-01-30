@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+    <metadata>
+        <id>$id$</id>
+        <version>$version$</version>
+        <title>Encoding.NET</title>
+        <authors>$author$</authors>
+        <owners>$author$</owners>
+        <copyright>Copyright 2014 Ben Ramey</copyright>
+        <licenseUrl>https://github.com/VML/Encoding.NET/blob/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/VML/Encoding.NET</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>C# wrapper for Encoding.com API.</description>
+        <releaseNotes>
+            Initial release
+        </releaseNotes>
+        <tags>encoding.com api</tags>
+    </metadata>
+</package>
