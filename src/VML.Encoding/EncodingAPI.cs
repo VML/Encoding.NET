@@ -2,8 +2,8 @@
 //  <copyright file="EncodingAPI.cs" company="VML">
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
-//  <created>01/30/2014 1:32 PM</created>
-//  <updated>01/30/2014 1:59 PM by Ben Ramey</updated>
+//  <created>01/30/2014 2:23 PM</created>
+//  <updated>01/30/2014 3:54 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -54,6 +54,11 @@ namespace VML.Encoding
 
             query.Action = QueryAction.AddMedia;
             return ExecuteQuery<AddMediaResponse>(query);
+        }
+
+        public EncodingQuery CreateQuery(QueryAction action)
+        {
+            return _client.CreateQuery(action);
         }
 
         public GetMediaListResponse GetMediaList(EncodingQuery query)
