@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 2:14 PM</created>
-//  <updated>01/30/2014 10:06 AM by Ben Ramey</updated>
+//  <updated>01/30/2014 10:10 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -43,6 +43,16 @@ namespace VML.Encoding.Model.Query
 
         [XmlElement(ElementName = "acbr")]
         public bool? AudioConstantBitrate { get; set; }
+
+        [XmlElement(ElementName = "audio_maxrate")]
+        [IgnoreNulls]
+        [RegexValidator(@"^[1-9]+k?$")]
+        public string AudioMaxRate { get; set; }
+
+        [XmlElement(ElementName = "audio_minrate")]
+        [IgnoreNulls]
+        [RegexValidator(@"^[1-9]+k?$")]
+        public string AudioMinRate { get; set; }
 
         [XmlElement(ElementName = "audio_normalization")]
         [IgnoreNulls]
