@@ -41,6 +41,35 @@ namespace VML.Encoding.Tests
         #region Public Methods
 
         [Theory]
+        [InlineData(FormatOutput.mp3, AudioCodec.libmp3lame)]
+        [InlineData(FormatOutput.m4a, AudioCodec.libfaac)]
+        public void ValidAudioCodec_IsValid(FormatOutput output, AudioCodec codec)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Output = output;
+            format.AudioCodec = codec;
+
+            format.Validate();
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData(FormatOutput.mp3, AudioCodec.ac3)]
+        [InlineData(FormatOutput.m4a, AudioCodec.libmp3lame)]
+        public void InvalidAudioCodec_IsInvalid(FormatOutput output, AudioCodec codec)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Output = output;
+            format.AudioCodec = codec;
+
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
         [InlineData("103")]
         [InlineData("2.3k")]
         public void InvalidBitrate_IsInvalid(string bitrate)

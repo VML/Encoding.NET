@@ -34,7 +34,9 @@ namespace VML.Encoding.Model.Query
         public int AudioChannelsNumber { get; set; }
 
         [XmlElement(ElementName = "audio_codec")]
-        public AudioCodec AudioCodec { get; set; }
+        [IgnoreNulls]
+        [AudioCodecValidator]
+        public AudioCodec? AudioCodec { get; set; }
 
         [XmlElement(ElementName = "audio_normalization")]
         public string AudioNormalization { get; set; }
@@ -231,8 +233,9 @@ namespace VML.Encoding.Model.Query
         public int? VP6Profile { get; set; }
 
         [XmlElement(ElementName = "video_codec")]
+        [IgnoreNulls]
         [VideoCodecValidator]
-        public VideoCodec VideoCodec { get; set; }
+        public VideoCodec? VideoCodec { get; set; }
 
         [XmlElement(ElementName = "video_codec_parameters")]
         public string VideoCodecParameters { get; set; }

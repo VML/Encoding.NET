@@ -79,9 +79,11 @@
     <Compile Include="Model\Query\EncodingQuery.cs" />
     <Compile Include="EncodingClient.cs" />
     <Compile Include="Model\Enums\TaskStatus.cs" />
+    <Compile Include="Model\Validation\Attributes\AudioCodecValidatorAttribute.cs" />
     <Compile Include="Model\Validation\Attributes\SizeValidatorAttribute.cs" />
     <Compile Include="Model\Validation\Attributes\VideoCodecValidatorAttribute.cs" />
     <Compile Include="Model\Validation\Validators\BaseValidator.cs" />
+    <Compile Include="Model\Validation\Validators\AudioCodecValidator.cs" />
     <Compile Include="Model\Validation\Validators\SizeValidator.cs" />
     <Compile Include="Model\Validation\Validators\VideoCodecValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

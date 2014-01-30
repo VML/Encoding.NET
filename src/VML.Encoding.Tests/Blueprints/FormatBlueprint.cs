@@ -28,7 +28,6 @@ namespace VML.Encoding.Tests.Blueprints
                 new Format
                     {
                         Output = FormatOutput.flv,
-                        VideoCodec = VideoCodec.flv,
                         CXMode = 1
                     });
         }

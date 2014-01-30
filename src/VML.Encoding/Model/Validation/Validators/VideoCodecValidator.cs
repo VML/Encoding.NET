@@ -23,7 +23,7 @@ namespace VML.Encoding.Model.Validation.Validators
     {
         #region Constants and Fields
 
-        private static readonly Dictionary<FormatOutput, VideoCodec> ValidCodecMap = new Dictionary
+        private static readonly Dictionary<FormatOutput, VideoCodec> Rules = new Dictionary
             <FormatOutput, VideoCodec>
             {
                 { FormatOutput.flv, VideoCodec.flv | VideoCodec.libx264 | VideoCodec.vp6 },
@@ -86,8 +86,8 @@ namespace VML.Encoding.Model.Validation.Validators
             VideoCodec objectToValidate, object currentTarget, string key, ValidationResults validationResults)
         {
             Format target = (Format)currentTarget;
-            bool validCodec = !ValidCodecMap.ContainsKey(target.Output)
-                              || (ValidCodecMap[target.Output] & objectToValidate) == objectToValidate;
+            bool validCodec = !Rules.ContainsKey(target.Output)
+                              || (Rules[target.Output] & objectToValidate) == objectToValidate;
 
             if (validCodec)
             {

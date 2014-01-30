@@ -83,7 +83,7 @@ namespace VML.Encoding.Model.Validation.Validators
                               && DimensionsAreEven(objectToValidate)
                               &&
                               (!Rules.ContainsKey(target.Output)
-                               || Rules[target.Output](target.Size, target.VideoCodec));
+                               || Rules[target.Output](objectToValidate, target.VideoCodec.Value));
 
             if (validCodec)
             {
