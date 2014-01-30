@@ -56,7 +56,9 @@ namespace VML.Encoding.Model.Query
         public int? AudioSampleRate { get; set; }
 
         [XmlElement(ElementName = "audio_sync")]
-        public string AudioSync { get; set; }
+        [IgnoreNulls]
+        [RangeValidator(0, RangeBoundaryType.Inclusive, 0, RangeBoundaryType.Ignore)]
+        public int? AudioSync { get; set; }
 
         [XmlElement(ElementName = "audio_volume")]
         [IgnoreNulls]

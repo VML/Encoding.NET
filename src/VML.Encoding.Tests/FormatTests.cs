@@ -39,6 +39,35 @@ namespace VML.Encoding.Tests
         #endregion
 
         #region Public Methods
+
+        [Theory]
+        [InlineData(-100)]
+        [InlineData(-1)]
+        public void InvalidAudioSync_IsInvalid(int value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.AudioSync = value;
+
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(100)]
+        [InlineData(1123200)]
+        public void ValidAudioSync_IsValid(int value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.AudioSync = value;
+
+            Assert.True(format.IsValid());
+        }
+
         [Theory]
         [InlineData(-100)]
         [InlineData(-1)]
