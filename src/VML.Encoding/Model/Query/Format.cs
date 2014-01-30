@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 2:14 PM</created>
-//  <updated>01/30/2014 10:10 AM by Ben Ramey</updated>
+//  <updated>01/30/2014 10:14 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -32,6 +32,11 @@ namespace VML.Encoding.Model.Query
         [IgnoreNulls]
         [EncodingValidator(typeof(AudioBitrateValidator))]
         public string AudioBitrate { get; set; }
+
+        [XmlElement(ElementName = "audio_bufsize")]
+        [IgnoreNulls]
+        [RegexValidator(@"^[1-9]+k?$")]
+        public string AudioBufsize { get; set; }
 
         [XmlElement(ElementName = "audio_channels_number")]
         public int AudioChannelsNumber { get; set; }

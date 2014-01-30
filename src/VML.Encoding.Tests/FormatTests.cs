@@ -44,6 +44,34 @@ namespace VML.Encoding.Tests
         [InlineData("0k")]
         [InlineData("0")]
         [InlineData("-1212")]
+        public void InvalidAudioBufsize_IsInvalid(string value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.AudioBufsize = value;
+
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData("129k")]
+        [InlineData("12k")]
+        [InlineData("23")]
+        public void ValidAudioBufsize_IsValid(string value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.AudioBufsize = value;
+
+            Assert.True(format.IsValid());
+        }
+        [Theory]
+        [InlineData("-129k")]
+        [InlineData("0k")]
+        [InlineData("0")]
+        [InlineData("-1212")]
         public void InvalidAudioMaxRate_IsInvalid(string value)
         {
             var format = _plant.Build<Format>();
