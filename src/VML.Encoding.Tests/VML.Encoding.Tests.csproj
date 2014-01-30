@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="BasicCredentialsTests.cs" />
     <Compile Include="Blueprints\EncodingQueryBlueprint.cs" />
+    <Compile Include="EncodingAPITests.cs" />
     <Compile Include="EncodingNotificationTests.theorydata.cs" />
     <Compile Include="EncodingQueryTests.cs" />
     <Compile Include="EncodingClientTests.theorydata.cs" />

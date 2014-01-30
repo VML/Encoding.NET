@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 8:59 AM</created>
-//  <updated>01/30/2014 1:29 PM by Ben Ramey</updated>
+//  <updated>01/30/2014 1:36 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -23,7 +23,7 @@ using VML.Encoding.Model.Validation;
 
 namespace VML.Encoding
 {
-    public class EncodingClient
+    public class EncodingClient : IEncodingClient
     {
         #region Constants and Fields
 

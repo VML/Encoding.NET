@@ -54,8 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Query\Response\AddMediaResponse.cs" />
+    <Compile Include="Model\Query\Response\BaseResponse.cs" />
+    <Compile Include="EncodingAPI.cs" />
     <Compile Include="Endpoints\HttpsEndpoints.cs" />
     <Compile Include="Endpoints\HttpEndpoints.cs" />
+    <Compile Include="Interfaces\IEncodingClient.cs" />
     <Compile Include="Interfaces\IEncodingEndpoints.cs" />
     <Compile Include="Interfaces\IQueryExecutor.cs" />
     <Compile Include="Model\BasicCredentials.cs" />
@@ -74,6 +78,8 @@
     <Compile Include="Model\Enums\FTyp.cs" />
     <Compile Include="Model\Enums\Profile.cs" />
     <Compile Include="Model\Enums\VideoCodec.cs" />
+    <Compile Include="Model\Query\Response\GetMediaListResponse.cs" />
+    <Compile Include="Model\Query\Response\ResponseWrapper.cs" />
     <Compile Include="Model\Serialization\NotificationJsonConverter.cs" />
     <Compile Include="Model\Serialization\NotificationXmlSerializer.cs" />
     <Compile Include="Model\Enums\QueryFormat.cs" />
@@ -88,6 +94,7 @@
     <Compile Include="Model\Validation\ValidationExtensions.cs" />
     <Compile Include="Model\Validation\Validators\ActionDependentRequiredValidator.cs" />
     <Compile Include="QueryExecutor.cs" />
+    <Compile Include="Model\Query\Response\ResponseError.cs" />
     <Compile Include="Support\Extensions\EnumExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
