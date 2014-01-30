@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/30/2014 4:30 PM</created>
-//  <updated>01/30/2014 5:24 PM by Ben Ramey</updated>
+//  <updated>01/30/2014 5:38 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -11,6 +11,7 @@
 using System.Linq;
 using System;
 using Newtonsoft.Json;
+using VML.Encoding.Model.Serialization;
 
 #endregion
 
@@ -20,9 +21,15 @@ namespace VML.Encoding.Model.Query.Response
     {
         #region Public Properties
 
+        [JsonConverter(typeof(EncodingDateTimeConverter))]
         public DateTime? Created { get; set; }
+
+        [JsonConverter(typeof(EncodingDateTimeConverter))]
         public DateTime? Downloaded { get; set; }
+
+        [JsonConverter(typeof(EncodingDateTimeConverter))]
         public DateTime? Finished { get; set; }
+
         public GetStatusFormat Format { get; set; }
         public string ID { get; set; }
         public string NotifyUrl { get; set; }
@@ -39,7 +46,9 @@ namespace VML.Encoding.Model.Query.Response
         [JsonProperty(PropertyName = "time_left_current")]
         public string TimeLeftCurrent { get; set; }
 
-        public DateTime Uploaded { get; set; }
+        [JsonConverter(typeof(EncodingDateTimeConverter))]
+        public DateTime? Uploaded { get; set; }
+
         public string UserID { get; set; }
 
         #endregion
@@ -52,19 +61,25 @@ namespace VML.Encoding.Model.Query.Response
         [JsonProperty(PropertyName = "cf_destination")]
         public string CFDestination { get; set; }
 
+        [JsonConverter(typeof(EncodingDateTimeConverter))]
         public DateTime? Created { get; set; }
+
         public Uri[] Destination { get; set; }
 
         [JsonProperty(PropertyName = "destination_status")]
         public string[] DestinationStatus { get; set; }
 
+        [JsonConverter(typeof(EncodingDateTimeConverter))]
         public DateTime? Finished { get; set; }
+
         public string ID { get; set; }
 
         [JsonProperty(PropertyName = "s3_destination")]
         public string S3Destination { get; set; }
 
+        [JsonConverter(typeof(EncodingDateTimeConverter))]
         public DateTime? Started { get; set; }
+
         public string Status { get; set; }
 
         #endregion

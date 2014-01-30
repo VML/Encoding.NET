@@ -81,6 +81,7 @@
     <Compile Include="Model\Query\Response\GetStatusResponse.cs" />
     <Compile Include="Model\Query\Response\GetMediaListResponse.cs" />
     <Compile Include="Model\Query\Response\ResponseWrapper.cs" />
+    <Compile Include="Model\Serialization\EncodingDateTimeConverter.cs" />
     <Compile Include="Model\Serialization\NotificationJsonConverter.cs" />
     <Compile Include="Model\Serialization\NotificationXmlSerializer.cs" />
     <Compile Include="Model\Enums\QueryFormat.cs" />
