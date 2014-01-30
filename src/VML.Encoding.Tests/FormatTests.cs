@@ -39,6 +39,42 @@ namespace VML.Encoding.Tests
         #endregion
 
         #region Public Methods
+        [Theory]
+        [InlineData(FormatOutput.roku_hls, "4.75k")]
+        [InlineData(FormatOutput.threegp, "5.25k")]
+        [InlineData(FormatOutput.threegp, "2.2k")]
+        [InlineData(FormatOutput.flv, "45k")]
+        [InlineData(FormatOutput.mp3, "161k")]
+        [InlineData(FormatOutput.webm, "50k")]
+        public void InvalidAudioBitrate_IsInvalid(FormatOutput output, string bitrate)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Output = output;
+            format.AudioBitrate = bitrate;
+
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData(FormatOutput.roku_hls, "10k")]
+        [InlineData(FormatOutput.threegp, "4.75k")]
+        [InlineData(FormatOutput.threegp, "5.15k")]
+        [InlineData(FormatOutput.threegp, "10.2k")]
+        [InlineData(FormatOutput.ogg, "45k")]
+        [InlineData(FormatOutput.ogg, "160k")]
+        [InlineData(FormatOutput.ogg, "224k")]
+        public void ValidAudioBitrate_IsValid(FormatOutput output, string bitrate)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Output = output;
+            format.AudioBitrate = bitrate;
+
+            Assert.True(format.IsValid());
+        }
 
         [Theory]
         [InlineData(FormatOutput.mp3, AudioCodec.libmp3lame)]

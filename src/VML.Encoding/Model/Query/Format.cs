@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 2:14 PM</created>
-//  <updated>01/29/2014 5:07 PM by Ben Ramey</updated>
+//  <updated>01/30/2014 9:13 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -15,6 +15,7 @@ using Microsoft.Practices.EnterpriseLibrary.Validation;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
 using VML.Encoding.Model.Enums;
 using VML.Encoding.Model.Validation.Attributes;
+using VML.Encoding.Model.Validation.Validators;
 
 #endregion
 
@@ -28,6 +29,8 @@ namespace VML.Encoding.Model.Query
         public bool AddMeta { get; set; }
 
         [XmlElement(ElementName = "audio_bitrate")]
+        [IgnoreNulls]
+        [EncodingValidator(typeof(AudioBitrateValidator))]
         public string AudioBitrate { get; set; }
 
         [XmlElement(ElementName = "audio_channels_number")]
@@ -35,8 +38,11 @@ namespace VML.Encoding.Model.Query
 
         [XmlElement(ElementName = "audio_codec")]
         [IgnoreNulls]
-        [AudioCodecValidator]
+        [EncodingValidator(typeof(AudioCodecValidator))]
         public AudioCodec? AudioCodec { get; set; }
+
+        [XmlElement(ElementName = "acbr")]
+        public bool? AudioConstantBitrate { get; set; }
 
         [XmlElement(ElementName = "audio_normalization")]
         public string AudioNormalization { get; set; }
@@ -201,7 +207,7 @@ namespace VML.Encoding.Model.Query
 
         [XmlElement(ElementName = "size")]
         [IgnoreNulls]
-        [SizeValidator]
+        [EncodingValidator(typeof(SizeValidator))]
         public string Size { get; set; }
 
         [XmlElement(ElementName = "start")]
@@ -234,7 +240,7 @@ namespace VML.Encoding.Model.Query
 
         [XmlElement(ElementName = "video_codec")]
         [IgnoreNulls]
-        [VideoCodecValidator]
+        [EncodingValidator(typeof(VideoCodecValidator))]
         public VideoCodec? VideoCodec { get; set; }
 
         [XmlElement(ElementName = "video_codec_parameters")]
