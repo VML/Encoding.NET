@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 2:14 PM</created>
-//  <updated>01/30/2014 10:31 AM by Ben Ramey</updated>
+//  <updated>01/30/2014 10:59 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -90,6 +90,8 @@ namespace VML.Encoding.Model.Query
         public string Bitrate { get; set; }
 
         [XmlElement(ElementName = "bufsize")]
+        [IgnoreNulls]
+        [RegexValidator(@"^[1-9]+k?$")]
         public string BufSize { get; set; }
 
         [XmlElement(ElementName = "cxmode")]
@@ -260,7 +262,7 @@ namespace VML.Encoding.Model.Query
 
         [XmlElement(ElementName = "two_pass_decoding")]
         [IgnoreNulls]
-        [RangeValidator(1, RangeBoundaryType.Inclusive, 1, RangeBoundaryType.Inclusive)]
+        [DomainValidator((short)1)]
         public short? TwoPassDecoding { get; set; }
 
         [XmlElement(ElementName = "upct")]
@@ -272,9 +274,8 @@ namespace VML.Encoding.Model.Query
 
         [XmlElement(ElementName = "vp6_profile")]
         [IgnoreNulls]
-        [RangeValidator(
-            1, RangeBoundaryType.Inclusive, 2, RangeBoundaryType.Inclusive, ErrorMessage = "{1} must be either 1 or 2")]
-        public int? VP6Profile { get; set; }
+        [DomainValidator((short)1, (short)2)]
+        public short? VP6Profile { get; set; }
 
         [XmlElement(ElementName = "video_codec")]
         [IgnoreNulls]

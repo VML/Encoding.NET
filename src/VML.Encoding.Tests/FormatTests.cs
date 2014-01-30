@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 3:14 PM</created>
-//  <updated>01/30/2014 10:32 AM by Ben Ramey</updated>
+//  <updated>01/30/2014 10:59 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -47,7 +47,7 @@ namespace VML.Encoding.Tests
         [InlineData(FormatOutput.flv, "45k")]
         [InlineData(FormatOutput.mp3, "161k")]
         [InlineData(FormatOutput.webm, "50k")]
-        public void InvalidAudioBitrate_IsInvalid(FormatOutput output, string bitrate)
+        public void AudioBitrate_Invalid_IsInvalid(FormatOutput output, string bitrate)
         {
             var format = _plant.Build<Format>();
             format.Validate();
@@ -59,11 +59,30 @@ namespace VML.Encoding.Tests
         }
 
         [Theory]
+        [InlineData(FormatOutput.roku_hls, "10k")]
+        [InlineData(FormatOutput.threegp, "4.75k")]
+        [InlineData(FormatOutput.threegp, "5.15k")]
+        [InlineData(FormatOutput.threegp, "10.2k")]
+        [InlineData(FormatOutput.ogg, "45k")]
+        [InlineData(FormatOutput.ogg, "160k")]
+        [InlineData(FormatOutput.ogg, "224k")]
+        public void AudioBitrate_Valid_IsValid(FormatOutput output, string bitrate)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Output = output;
+            format.AudioBitrate = bitrate;
+
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
         [InlineData("-129k")]
         [InlineData("0k")]
         [InlineData("0")]
         [InlineData("-1212")]
-        public void InvalidAudioBufsize_IsInvalid(string value)
+        public void AudioBufsize_Invalid_IsInvalid(string value)
         {
             var format = _plant.Build<Format>();
             format.Validate();
@@ -74,12 +93,26 @@ namespace VML.Encoding.Tests
         }
 
         [Theory]
+        [InlineData("129k")]
+        [InlineData("12k")]
+        [InlineData("23")]
+        public void AudioBufsize_Valid_IsValid(string value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.AudioBufsize = value;
+
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
         [InlineData(FormatOutput.flv, -2)]
         [InlineData(FormatOutput.flv, 0)]
         [InlineData(FormatOutput.threegp, 5)]
         [InlineData(FormatOutput.android, 23)]
         [InlineData(FormatOutput.android, -1)]
-        public void InvalidAudioChannelsNumber_IsInvalid(FormatOutput output, int value)
+        public void AudioChannelsNumber_Invalid_IsInvalid(FormatOutput output, int value)
         {
             var format = _plant.Build<Format>();
             format.Validate();
@@ -91,9 +124,26 @@ namespace VML.Encoding.Tests
         }
 
         [Theory]
+        [InlineData(FormatOutput.flv, 129)]
+        [InlineData(FormatOutput.flv, 2)]
+        [InlineData(FormatOutput.threegp, 1)]
+        [InlineData(FormatOutput.android, 1)]
+        [InlineData(FormatOutput.android, 2)]
+        public void AudioChannelsNumber_Valid_IsValid(FormatOutput output, int value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Output = output;
+            format.AudioChannelsNumber = value;
+
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
         [InlineData(FormatOutput.mp3, AudioCodec.ac3)]
         [InlineData(FormatOutput.m4a, AudioCodec.libmp3lame)]
-        public void InvalidAudioCodec_IsInvalid(FormatOutput output, AudioCodec codec)
+        public void AudioCodec_Invalid_IsInvalid(FormatOutput output, AudioCodec codec)
         {
             var format = _plant.Build<Format>();
             format.Validate();
@@ -105,11 +155,26 @@ namespace VML.Encoding.Tests
         }
 
         [Theory]
+        [InlineData(FormatOutput.mp3, AudioCodec.libmp3lame)]
+        [InlineData(FormatOutput.m4a, AudioCodec.libfaac)]
+        public void AudioCodec_Valid_IsValid(FormatOutput output, AudioCodec codec)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Output = output;
+            format.AudioCodec = codec;
+
+            format.Validate();
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
         [InlineData("-129k")]
         [InlineData("0k")]
         [InlineData("0")]
         [InlineData("-1212")]
-        public void InvalidAudioMaxRate_IsInvalid(string value)
+        public void AudioMaxRate_Invalid_IsInvalid(string value)
         {
             var format = _plant.Build<Format>();
             format.Validate();
@@ -120,11 +185,25 @@ namespace VML.Encoding.Tests
         }
 
         [Theory]
+        [InlineData("129k")]
+        [InlineData("12k")]
+        [InlineData("23")]
+        public void AudioMaxRate_Valid_IsValid(string value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.AudioMaxRate = value;
+
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
         [InlineData("-129k")]
         [InlineData("0k")]
         [InlineData("0")]
         [InlineData("-1212")]
-        public void InvalidAudioMinRate_IsInvalid(string value)
+        public void AudioMinRate_Invalid_IsInvalid(string value)
         {
             var format = _plant.Build<Format>();
             format.Validate();
@@ -135,10 +214,24 @@ namespace VML.Encoding.Tests
         }
 
         [Theory]
+        [InlineData("129k")]
+        [InlineData("12k")]
+        [InlineData("23")]
+        public void AudioMinRate_Valid_IsValid(string value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.AudioMinRate = value;
+
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
         [InlineData(-100)]
         [InlineData(-1)]
         [InlineData(101)]
-        public void InvalidAudioNormalization_IsInvalid(int value)
+        public void AudioNormalization_Invalid_IsInvalid(int value)
         {
             var format = _plant.Build<Format>();
             format.Validate();
@@ -149,12 +242,26 @@ namespace VML.Encoding.Tests
         }
 
         [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(100)]
+        public void AudioNormalization_Valid_IsValid(int value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.AudioNormalization = value;
+
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
         [InlineData(FormatOutput.roku_hls, -100)]
         [InlineData(FormatOutput.threegp, 9000)]
         [InlineData(FormatOutput.flv, 10000)]
         [InlineData(FormatOutput.mp3, 29921)]
         [InlineData(FormatOutput.webm, 15000)]
-        public void InvalidAudioSampleRate_IsInvalid(FormatOutput output, int rate)
+        public void AudioSampleRate_Invalid_IsInvalid(FormatOutput output, int rate)
         {
             var format = _plant.Build<Format>();
             format.Validate();
@@ -166,9 +273,26 @@ namespace VML.Encoding.Tests
         }
 
         [Theory]
+        [InlineData(FormatOutput.roku_hls, 100)]
+        [InlineData(FormatOutput.threegp, 8000)]
+        [InlineData(FormatOutput.flv, 11025)]
+        [InlineData(FormatOutput.mp3, 44100)]
+        [InlineData(FormatOutput.mpeg2, 48000)]
+        public void AudioSampleRate_Valid_IsValid(FormatOutput output, int rate)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Output = output;
+            format.AudioSampleRate = rate;
+
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
         [InlineData(-100)]
         [InlineData(-1)]
-        public void InvalidAudioSync_IsInvalid(int value)
+        public void AudioSync_Invalid_IsInvalid(int value)
         {
             var format = _plant.Build<Format>();
             format.Validate();
@@ -179,9 +303,24 @@ namespace VML.Encoding.Tests
         }
 
         [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(100)]
+        [InlineData(1123200)]
+        public void AudioSync_Valid_IsValid(int value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.AudioSync = value;
+
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
         [InlineData("103")]
         [InlineData("2.3k")]
-        public void InvalidBitrate_IsInvalid(string bitrate)
+        public void Bitrate_Invalid_IsInvalid(string bitrate)
         {
             var format = _plant.Build<Format>();
             format.Validate();
@@ -192,8 +331,49 @@ namespace VML.Encoding.Tests
         }
 
         [Theory]
+        [InlineData("103k")]
+        public void Bitrate_Valid_IsValid(string bitrate)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Bitrate = bitrate;
+
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData("-129k")]
+        [InlineData("0k")]
+        [InlineData("0")]
+        [InlineData("-1212")]
+        public void Bufsize_Invalid_IsInvalid(string value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.BufSize = value;
+
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData("129k")]
+        [InlineData("12k")]
+        [InlineData("23")]
+        public void Bufsize_Valid_IsValid(string value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.BufSize = value;
+
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
         [InlineData(-10)]
-        public void InvalidDuration_IsInvalid(int duration)
+        public void Duration_Invalid_IsInvalid(int duration)
         {
             var format = _plant.Build<Format>();
             format.Validate();
@@ -203,10 +383,23 @@ namespace VML.Encoding.Tests
         }
 
         [Theory]
+        [InlineData(1)]
+        [InlineData(200)]
+        [InlineData(0)]
+        public void Duration_Valid_IsValid(int duration)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Duration = duration;
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
         [InlineData("-1")]
         [InlineData("1/-3")]
         [InlineData("-20/3")]
-        public void InvalidFramerate_IsInvalid(string framerate)
+        public void Framerate_Invalid_IsInvalid(string framerate)
         {
             var format = _plant.Build<Format>();
             format.Validate();
@@ -220,9 +413,25 @@ namespace VML.Encoding.Tests
         }
 
         [Theory]
+        [InlineData("1")]
+        [InlineData("200/239")]
+        [InlineData("2392")]
+        public void Framerate_Valid_IsValid(string framerate)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Framerate = framerate;
+            Assert.True(format.IsValid());
+
+            format.FramerateUpperThreshold = framerate;
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
         [InlineData("330.2")]
         [InlineData("2.3k")]
-        public void InvalidMaxRateAndMinRate_IsInvalid(string rate)
+        public void MaxRateAndMinRate_Invalid_IsInvalid(string rate)
         {
             var format = _plant.Build<Format>();
             format.Validate();
@@ -236,296 +445,9 @@ namespace VML.Encoding.Tests
         }
 
         [Theory]
-        [InlineData("bob")]
-        [InlineData("1,2:0")]
-        [InlineData(":0,2")]
-        [InlineData("1:0,2")]
-        [InlineData("-2,-2:-1,-3")]
-        [InlineData("100,212:-12,23")]
-        public void InvalidPan_IsInvalid(string value)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.Pan = value;
-
-            Assert.False(format.IsValid());
-        }
-
-        [Theory]
-        [InlineData("bob")]
-        [InlineData("1.2:3")]
-        [InlineData("1:3.3")]
-        public void InvalidSetAspectRatios_IsInvalid(string aspectRatio)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.SetAspectRatio = aspectRatio;
-
-            Assert.False(format.IsValid());
-        }
-
-        [Theory]
-        [InlineData(FormatOutput.flv, "2x5")]
-        [InlineData(FormatOutput.flv, "3x4")]
-        [InlineData(FormatOutput.threegp, "2x4")]
-        [InlineData(FormatOutput.appletv, "2x4")]
-        [InlineData(FormatOutput.zune, "2x4")]
-        [InlineData(FormatOutput.mxf, "2x4")]
-        public void InvalidSizes_IsInvalid(FormatOutput output, string size)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.Output = output;
-            format.Size = size;
-
-            Assert.False(format.IsValid());
-        }
-
-        [Theory]
-        [InlineData("-12")]
-        [InlineData("-22.123")]
-        public void InvalidStartFinish_IsInvalid(string startOrFinish)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.Start = startOrFinish;
-            Assert.False(format.IsValid());
-
-            format.Start = null;
-            format.Finish = startOrFinish;
-            Assert.False(format.IsValid());
-        }
-
-        [Theory]
-        [InlineData((short)0)]
-        [InlineData((short)-1)]
-        [InlineData((short)2)]
-        public void InvalidTwoPassDecoding_IsInvalid(short value)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.TwoPassDecoding = value;
-
-            Assert.False(format.IsValid());
-        }
-
-        [Theory]
-        [InlineData(FormatOutput.flv, VideoCodec.h263)]
-        [InlineData(FormatOutput.mp4, VideoCodec.libtheora)]
-        [InlineData(FormatOutput.webm, VideoCodec.none)]
-        [InlineData(FormatOutput.threegp, VideoCodec.flv)]
-        public void InvalidVideoCodecs_IsInvalid(FormatOutput output, VideoCodec codec)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.Output = output;
-            format.VideoCodec = codec;
-
-            Assert.False(format.IsValid());
-        }
-
-        [Theory]
-        [InlineData(-100)]
-        public void InvalidVolume_IsInvalid(int volume)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.AudioVolume = volume;
-
-            Assert.False(format.IsValid());
-        }
-
-        [Theory]
-        [InlineData(FormatOutput.roku_hls, "10k")]
-        [InlineData(FormatOutput.threegp, "4.75k")]
-        [InlineData(FormatOutput.threegp, "5.15k")]
-        [InlineData(FormatOutput.threegp, "10.2k")]
-        [InlineData(FormatOutput.ogg, "45k")]
-        [InlineData(FormatOutput.ogg, "160k")]
-        [InlineData(FormatOutput.ogg, "224k")]
-        public void ValidAudioBitrate_IsValid(FormatOutput output, string bitrate)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.Output = output;
-            format.AudioBitrate = bitrate;
-
-            Assert.True(format.IsValid());
-        }
-
-        [Theory]
-        [InlineData("129k")]
-        [InlineData("12k")]
-        [InlineData("23")]
-        public void ValidAudioBufsize_IsValid(string value)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.AudioBufsize = value;
-
-            Assert.True(format.IsValid());
-        }
-
-        [Theory]
-        [InlineData(FormatOutput.flv, 129)]
-        [InlineData(FormatOutput.flv, 2)]
-        [InlineData(FormatOutput.threegp, 1)]
-        [InlineData(FormatOutput.android, 1)]
-        [InlineData(FormatOutput.android, 2)]
-        public void ValidAudioChannelsNumber_IsValid(FormatOutput output, int value)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.Output = output;
-            format.AudioChannelsNumber = value;
-
-            Assert.True(format.IsValid());
-        }
-
-        [Theory]
-        [InlineData(FormatOutput.mp3, AudioCodec.libmp3lame)]
-        [InlineData(FormatOutput.m4a, AudioCodec.libfaac)]
-        public void ValidAudioCodec_IsValid(FormatOutput output, AudioCodec codec)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.Output = output;
-            format.AudioCodec = codec;
-
-            format.Validate();
-            Assert.True(format.IsValid());
-        }
-
-        [Theory]
-        [InlineData("129k")]
-        [InlineData("12k")]
-        [InlineData("23")]
-        public void ValidAudioMaxRate_IsValid(string value)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.AudioMaxRate = value;
-
-            Assert.True(format.IsValid());
-        }
-
-        [Theory]
-        [InlineData("129k")]
-        [InlineData("12k")]
-        [InlineData("23")]
-        public void ValidAudioMinRate_IsValid(string value)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.AudioMinRate = value;
-
-            Assert.True(format.IsValid());
-        }
-
-        [Theory]
-        [InlineData(0)]
-        [InlineData(1)]
-        [InlineData(100)]
-        public void ValidAudioNormalization_IsValid(int value)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.AudioNormalization = value;
-
-            Assert.True(format.IsValid());
-        }
-
-        [Theory]
-        [InlineData(FormatOutput.roku_hls, 100)]
-        [InlineData(FormatOutput.threegp, 8000)]
-        [InlineData(FormatOutput.flv, 11025)]
-        [InlineData(FormatOutput.mp3, 44100)]
-        [InlineData(FormatOutput.mpeg2, 48000)]
-        public void ValidAudioSampleRate_IsValid(FormatOutput output, int rate)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.Output = output;
-            format.AudioSampleRate = rate;
-
-            Assert.True(format.IsValid());
-        }
-
-        [Theory]
-        [InlineData(0)]
-        [InlineData(1)]
-        [InlineData(100)]
-        [InlineData(1123200)]
-        public void ValidAudioSync_IsValid(int value)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.AudioSync = value;
-
-            Assert.True(format.IsValid());
-        }
-
-        [Theory]
-        [InlineData("103k")]
-        public void ValidBitrate_IsValid(string bitrate)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.Bitrate = bitrate;
-
-            Assert.True(format.IsValid());
-        }
-
-        [Theory]
-        [InlineData(1)]
-        [InlineData(200)]
-        [InlineData(0)]
-        public void ValidDuration_IsValid(int duration)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.Duration = duration;
-            Assert.True(format.IsValid());
-        }
-
-        [Theory]
-        [InlineData("1")]
-        [InlineData("200/239")]
-        [InlineData("2392")]
-        public void ValidFramerate_IsValid(string framerate)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.Framerate = framerate;
-            Assert.True(format.IsValid());
-
-            format.FramerateUpperThreshold = framerate;
-            Assert.True(format.IsValid());
-        }
-
-        [Theory]
         [InlineData("103k")]
         [InlineData("103")]
-        public void ValidMaxRateAndMinRate_IsValid(string rate)
+        public void MaxRateAndMinRate_Valid_IsValid(string rate)
         {
             var format = _plant.Build<Format>();
             format.Validate();
@@ -538,9 +460,26 @@ namespace VML.Encoding.Tests
         }
 
         [Theory]
+        [InlineData("bob")]
+        [InlineData("1,2:0")]
+        [InlineData(":0,2")]
+        [InlineData("1:0,2")]
+        [InlineData("-2,-2:-1,-3")]
+        [InlineData("100,212:-12,23")]
+        public void Pan_Invalid_IsInvalid(string value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Pan = value;
+
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
         [InlineData("1,1:0,0")]
         [InlineData("100,200:29,32")]
-        public void ValidPan_IsValid(string value)
+        public void Pan_Valid_IsValid(string value)
         {
             var format = _plant.Build<Format>();
             format.Validate();
@@ -551,10 +490,24 @@ namespace VML.Encoding.Tests
         }
 
         [Theory]
+        [InlineData("bob")]
+        [InlineData("1.2:3")]
+        [InlineData("1:3.3")]
+        public void SetAspectRatios_Invalid_IsInvalid(string aspectRatio)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.SetAspectRatio = aspectRatio;
+
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
         [InlineData("source")]
         [InlineData("1:3")]
         [InlineData("1.23")]
-        public void ValidSetAspectRatios_IsValid(string aspectRatio)
+        public void SetAspectRatios_Valid_IsValid(string aspectRatio)
         {
             var format = _plant.Build<Format>();
             format.Validate();
@@ -562,6 +515,24 @@ namespace VML.Encoding.Tests
             format.SetAspectRatio = aspectRatio;
 
             Assert.True(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData(FormatOutput.flv, "2x5")]
+        [InlineData(FormatOutput.flv, "3x4")]
+        [InlineData(FormatOutput.threegp, "2x4")]
+        [InlineData(FormatOutput.appletv, "2x4")]
+        [InlineData(FormatOutput.zune, "2x4")]
+        [InlineData(FormatOutput.mxf, "2x4")]
+        public void Sizes_Invalid_IsInvalid(FormatOutput output, string size)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Output = output;
+            format.Size = size;
+
+            Assert.False(format.IsValid());
         }
 
         [Theory]
@@ -583,7 +554,7 @@ namespace VML.Encoding.Tests
         [InlineData(FormatOutput.threegp, VideoCodec.h263, "704x576")]
         [InlineData(FormatOutput.threegp, VideoCodec.h263, "1408x1152")]
         [InlineData(FormatOutput.appletv, VideoCodec.mpeg4, "710x480")]
-        public void ValidSizes_IsValid(FormatOutput output, VideoCodec codec, string size)
+        public void Sizes_Valid_IsValid(FormatOutput output, VideoCodec codec, string size)
         {
             var format = _plant.Build<Format>();
             format.Validate();
@@ -596,11 +567,27 @@ namespace VML.Encoding.Tests
         }
 
         [Theory]
+        [InlineData("-12")]
+        [InlineData("-22.123")]
+        public void StartFinish_Invalid_IsInvalid(string startOrFinish)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Start = startOrFinish;
+            Assert.False(format.IsValid());
+
+            format.Start = null;
+            format.Finish = startOrFinish;
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
         [InlineData("1.2")]
         [InlineData("23")]
         [InlineData("12:20:22:21")]
         [InlineData("12:20:22;21")]
-        public void ValidStartFinish_IsValid(string startOrFinish)
+        public void StartFinish_Valid_IsValid(string startOrFinish)
         {
             var format = _plant.Build<Format>();
             format.Validate();
@@ -613,15 +600,58 @@ namespace VML.Encoding.Tests
         }
 
         [Theory]
-        [InlineData((short)1)]
-        public void ValidTwoPassDecoding_IsValid(short value)
+        [InlineData((short)0)]
+        [InlineData((short)-1)]
+        [InlineData((short)2)]
+        public void TwoPassDecoding_Invalid_IsInvalid(short value)
         {
             var format = _plant.Build<Format>();
             format.Validate();
 
             format.TwoPassDecoding = value;
 
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData((short)1)]
+        public void TwoPassDecoding_Valid_IsValid(short value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.TwoPassDecoding = value;
+
+            format.Validate();
             Assert.True(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData(FormatOutput.flv, VideoCodec.h263)]
+        [InlineData(FormatOutput.mp4, VideoCodec.libtheora)]
+        [InlineData(FormatOutput.webm, VideoCodec.none)]
+        [InlineData(FormatOutput.threegp, VideoCodec.flv)]
+        public void VideoCodecs_Invalid_IsInvalid(FormatOutput output, VideoCodec codec)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Output = output;
+            format.VideoCodec = codec;
+
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData(-100)]
+        public void Volume_Invalid_IsInvalid(int volume)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.AudioVolume = volume;
+
+            Assert.False(format.IsValid());
         }
 
         [Theory]
@@ -629,7 +659,7 @@ namespace VML.Encoding.Tests
         [InlineData(1)]
         [InlineData(100)]
         [InlineData(12312)]
-        public void ValidVolume_IsValid(int volume)
+        public void Volume_Valid_IsValid(int volume)
         {
             var format = _plant.Build<Format>();
             format.Validate();
