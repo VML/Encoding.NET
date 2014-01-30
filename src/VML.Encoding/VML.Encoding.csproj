@@ -58,7 +58,6 @@
     <Compile Include="Model\Enums\AudioCodec.cs" />
     <Compile Include="Model\Enums\ForceInterlaced.cs" />
     <Compile Include="Model\Enums\Deinterlacing.cs" />
-    <Compile Include="Model\Query\Format.cs" />
     <Compile Include="Model\Notification\EncodingNotification.cs" />
     <Compile Include="Model\Notification\FormatDestination.cs" />
     <Compile Include="Model\Enums\FormatOutput.cs" />
@@ -67,13 +66,8 @@
     <Compile Include="Model\Notification\Format.cs" />
     <Compile Include="Model\Notification\Result.cs" />
     <Compile Include="Model\Enums\FTyp.cs" />
-    <Compile Include="Model\Query\Logo.cs" />
-    <Compile Include="Model\Query\Metadata.cs" />
-    <Compile Include="Model\Query\Overlay.cs" />
     <Compile Include="Model\Enums\Profile.cs" />
-    <Compile Include="Model\Query\SplitScreen.cs" />
     <Compile Include="Model\Enums\VideoCodec.cs" />
-    <Compile Include="Model\Query\TextOverlay.cs" />
     <Compile Include="Model\Serialization\NotificationJsonConverter.cs" />
     <Compile Include="Model\Serialization\NotificationXmlSerializer.cs" />
     <Compile Include="Model\Enums\QueryFormat.cs" />
@@ -83,12 +77,6 @@
     <Compile Include="Model\Enums\TaskStatus.cs" />
     <Compile Include="Model\Validation\Attributes\EncodingValidatorAttribute.cs" />
     <Compile Include="Model\Validation\Validators\BaseValidator.cs" />
-    <Compile Include="Model\Validation\Validators\AudioCodecValidator.cs" />
-    <Compile Include="Model\Validation\Validators\AudioBitrateValidator.cs" />
-    <Compile Include="Model\Validation\Validators\AudioSampleRateValidator.cs" />
-    <Compile Include="Model\Validation\Validators\AudioChannelsNumberValidator.cs" />
-    <Compile Include="Model\Validation\Validators\SizeValidator.cs" />
-    <Compile Include="Model\Validation\Validators\VideoCodecValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Validation\Attributes\ActionDependentRequiredAttribute.cs" />
     <Compile Include="Model\Validation\ValidationExtensions.cs" />
