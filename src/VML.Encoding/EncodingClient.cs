@@ -3,13 +3,14 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 8:59 AM</created>
-//  <updated>01/30/2014 11:05 AM by Ben Ramey</updated>
+//  <updated>01/30/2014 11:24 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
 
 using System.Linq;
 using System;
+using VML.Encoding.Interfaces;
 using VML.Encoding.Model.Enums;
 using VML.Encoding.Model.Interfaces;
 using VML.Encoding.Model.Query;
@@ -24,16 +25,23 @@ namespace VML.Encoding
         #region Constants and Fields
 
         private readonly IEncodingCredentials _credentials;
+        private IQueryExecutor _executor;
 
         #endregion
 
         #region Constructors and Destructors
 
         public EncodingClient(IEncodingCredentials credentials)
+            : this(credentials, null)
+        {
+        }
+
+        public EncodingClient(IEncodingCredentials credentials, IQueryExecutor executor)
         {
             credentials.Validate();
 
             _credentials = credentials;
+            _executor = executor ?? new QueryExecutor();
         }
 
         #endregion

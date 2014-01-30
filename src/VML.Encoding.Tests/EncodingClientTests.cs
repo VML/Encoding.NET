@@ -11,6 +11,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using NSubstitute;
+using VML.Encoding.Interfaces;
 using VML.Encoding.Model.Enums;
 using VML.Encoding.Model.Query;
 using VML.Encoding.Tests.Support;
@@ -25,6 +27,18 @@ namespace VML.Encoding.Tests
     public partial class EncodingClientTests
     {
         #region Public Methods
+
+        [Theory]
+        [PropertyData("ValidQueries")]
+        public void Execute_SerializesQuery(EncodingQuery query, string serializedQuery)
+        {
+            var creds = new TestCredentials();
+            var client = new EncodingClient(creds);
+            var mockExecutor = Substitute.For<IQueryExecutor>();
+
+            client.Execute(query);
+            mockExecutor.Received().Execute(serializedQuery);
+        }
 
         [Theory]
         [PropertyData("InvalidCredentials")]

@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IQueryExecutor.cs" />
     <Compile Include="Model\BasicCredentials.cs" />
     <Compile Include="Model\Enums\DestinationStatus.cs" />
     <Compile Include="Model\Enums\Region.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Model\Validation\Attributes\ActionDependentRequiredAttribute.cs" />
     <Compile Include="Model\Validation\ValidationExtensions.cs" />
     <Compile Include="Model\Validation\Validators\ActionDependentRequiredValidator.cs" />
+    <Compile Include="QueryExecutor.cs" />
     <Compile Include="Support\Extensions\EnumExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

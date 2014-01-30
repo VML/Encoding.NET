@@ -47,7 +47,7 @@ namespace VML.Encoding.Model.Validation.Validators
         {
             get
             {
-                return "You must set a MediaId when performing a media action.";
+                return "You must set a {1} when performing a media action.";
             }
         }
 
