@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/30/2014 11:23 AM</created>
-//  <updated>01/30/2014 12:59 PM by Ben Ramey</updated>
+//  <updated>01/30/2014 1:29 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -19,9 +19,9 @@ namespace VML.Encoding.Interfaces
     {
         #region Public Methods
 
-        void ExecuteQuery(string data);
+        string ExecuteQuery(string data);
 
-        void ExecuteStatus(string data);
+        string ExecuteStatus(string data);
 
         #endregion
     }

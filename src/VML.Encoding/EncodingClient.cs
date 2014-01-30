@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 8:59 AM</created>
-//  <updated>01/30/2014 12:59 PM by Ben Ramey</updated>
+//  <updated>01/30/2014 1:29 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -61,7 +61,7 @@ namespace VML.Encoding
             return query;
         }
 
-        public bool Execute(EncodingQuery query)
+        public string Execute(EncodingQuery query)
         {
             query.Validate();
 
@@ -71,9 +71,8 @@ namespace VML.Encoding
                     NullValueHandling = NullValueHandling.Ignore
                 };
             string json = JsonConvert.SerializeObject(new { query }, settings);
-            _executor.ExecuteQuery(json);
 
-            return false;
+            return _executor.ExecuteQuery(json);
         }
 
         #endregion
