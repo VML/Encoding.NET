@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 3:14 PM</created>
-//  <updated>01/30/2014 10:59 AM by Ben Ramey</updated>
+//  <updated>01/30/2014 11:05 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -485,6 +485,35 @@ namespace VML.Encoding.Tests
             format.Validate();
 
             format.Pan = value;
+
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData("-129k")]
+        [InlineData("0k")]
+        [InlineData("0")]
+        [InlineData("-1212")]
+        public void RCInitOccupancy_Invalid_IsInvalid(string value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.RCInitOccupancy = value;
+
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData("129k")]
+        [InlineData("12k")]
+        [InlineData("23")]
+        public void RCInitOccupancy_Valid_IsValid(string value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.RCInitOccupancy = value;
 
             Assert.True(format.IsValid());
         }

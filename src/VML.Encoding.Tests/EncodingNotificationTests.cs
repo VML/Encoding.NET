@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 10:29 AM</created>
-//  <updated>01/29/2014 12:41 PM by Ben Ramey</updated>
+//  <updated>01/30/2014 11:05 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -12,7 +12,6 @@ using System;
 using System.Linq;
 using System.Xml;
 using Newtonsoft.Json.Linq;
-using VML.Encoding.Model;
 using VML.Encoding.Model.Enums;
 using VML.Encoding.Model.Notification;
 using VML.Encoding.Model.Serialization;

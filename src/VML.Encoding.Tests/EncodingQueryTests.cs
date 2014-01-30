@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/24/2014 12:31 PM</created>
-//  <updated>01/29/2014 10:17 AM by Ben Ramey</updated>
+//  <updated>01/30/2014 11:05 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -11,7 +11,6 @@
 using System;
 using System.Linq;
 using Plant.Core;
-using VML.Encoding.Model;
 using VML.Encoding.Model.Enums;
 using VML.Encoding.Model.Query;
 using VML.Encoding.Model.Validation;

@@ -1,9 +1,9 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="ActionDependentRequired.cs" company="VML">
+//  <copyright file="ActionDependentRequiredValidator.cs" company="VML">
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/28/2014 5:59 PM</created>
-//  <updated>01/29/2014 4:02 PM by Ben Ramey</updated>
+//  <updated>01/30/2014 11:05 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings

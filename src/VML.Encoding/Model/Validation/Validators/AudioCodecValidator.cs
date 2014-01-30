@@ -1,9 +1,9 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="ValidVideoCodec.cs" company="VML">
+//  <copyright file="AudioCodecValidator.cs" company="VML">
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
-//  <created>01/29/2014 2:59 PM</created>
-//  <updated>01/29/2014 4:15 PM by Ben Ramey</updated>
+//  <created>01/30/2014 8:32 AM</created>
+//  <updated>01/30/2014 11:05 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -27,29 +27,102 @@ namespace VML.Encoding.Model.Validation.Validators
             <FormatOutput, AudioCodec>
             {
                 { FormatOutput.mp3, AudioCodec.libmp3lame },
-                { FormatOutput.m4a, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 | AudioCodec.ac3 },
-                { FormatOutput.flv, AudioCodec.libmp3lame | AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 },
-                { FormatOutput.mp4, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 | AudioCodec.ac3 },
-                { FormatOutput.fl9, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 },
-                { FormatOutput.m4v, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 },
-                { FormatOutput.ipod, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 },
-                { FormatOutput.iphone, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 },
-                { FormatOutput.ipad, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 },
-                { FormatOutput.appletv, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 },
-                { FormatOutput.psp, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 },
-                { FormatOutput.wowza, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 },
-                { FormatOutput.roku_1200, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 },
-                { FormatOutput.roku_1800, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 },
-                { FormatOutput.roku_2700, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 },
-                { FormatOutput.roku_800, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 },
-                { FormatOutput.kindle_fire, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 },
-                { FormatOutput.mov, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 | AudioCodec.eac3 },
-                { FormatOutput.iphone_stream, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 },
-                { FormatOutput.ipad_stream, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 },
-                { FormatOutput.wowza_multibitrate, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 },
-                { FormatOutput.smooth_streaming, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 },
-                { FormatOutput.hds, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 },
-                { FormatOutput.roku_hls, AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2 },
+                {
+                    FormatOutput.m4a,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                    | AudioCodec.ac3
+                },
+                {
+                    FormatOutput.flv,
+                    AudioCodec.libmp3lame | AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac
+                    | AudioCodec.dolby_heaacv2
+                },
+                {
+                    FormatOutput.mp4,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                    | AudioCodec.ac3
+                },
+                {
+                    FormatOutput.fl9,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                },
+                {
+                    FormatOutput.m4v,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                },
+                {
+                    FormatOutput.ipod,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                },
+                {
+                    FormatOutput.iphone,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                },
+                {
+                    FormatOutput.ipad,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                },
+                {
+                    FormatOutput.appletv,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                },
+                {
+                    FormatOutput.psp,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                },
+                {
+                    FormatOutput.wowza,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                },
+                {
+                    FormatOutput.roku_1200,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                },
+                {
+                    FormatOutput.roku_1800,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                },
+                {
+                    FormatOutput.roku_2700,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                },
+                {
+                    FormatOutput.roku_800,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                },
+                {
+                    FormatOutput.kindle_fire,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                },
+                {
+                    FormatOutput.mov,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                    | AudioCodec.eac3
+                },
+                {
+                    FormatOutput.iphone_stream,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                },
+                {
+                    FormatOutput.ipad_stream,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                },
+                {
+                    FormatOutput.wowza_multibitrate,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                },
+                {
+                    FormatOutput.smooth_streaming,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                },
+                {
+                    FormatOutput.hds,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                },
+                {
+                    FormatOutput.roku_hls,
+                    AudioCodec.libfaac | AudioCodec.dolby_aac | AudioCodec.dolby_heaac | AudioCodec.dolby_heaacv2
+                },
                 { FormatOutput.wmv, AudioCodec.wmav2 | AudioCodec.libmp3lame },
                 { FormatOutput.wma, AudioCodec.wmav2 | AudioCodec.libmp3lame },
                 { FormatOutput.zune, AudioCodec.wmav2 | AudioCodec.libmp3lame },

@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 2:14 PM</created>
-//  <updated>01/30/2014 10:59 AM by Ben Ramey</updated>
+//  <updated>01/30/2014 11:05 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -114,6 +114,9 @@ namespace VML.Encoding.Model.Query
         [XmlElement(ElementName = "crop_top")]
         public string CropTop { get; set; }
 
+        [XmlElement(ElementName = "deinterlacing")]
+        public Deinterlacing? Deinterlacing { get; set; }
+
         public Uri[] Destinations { get; set; }
 
         [XmlElement(ElementName = "duration")]
@@ -138,7 +141,7 @@ namespace VML.Encoding.Model.Query
         public string Finish { get; set; }
 
         [XmlElement(ElementName = "force_interlaced")]
-        public ForceInterlaced ForceInterlaced { get; set; }
+        public ForceInterlaced? ForceInterlaced { get; set; }
 
         [XmlElement(ElementName = "framerate")]
         [IgnoreNulls]
@@ -214,6 +217,8 @@ namespace VML.Encoding.Model.Query
         public Profile? Profile { get; set; }
 
         [XmlElement(ElementName = "rc_init_occupancy")]
+        [IgnoreNulls]
+        [RegexValidator(@"^[1-9]+k?$")]
         public string RCInitOccupancy { get; set; }
 
         [XmlElement(ElementName = "rotate")]
