@@ -49,7 +49,7 @@ namespace VML.Encoding
             _restClient.BaseUrl = _endpoints.ManageEndpoint;
 
             RestRequest request = new RestRequest(Method.POST);
-            request.AddParameter("json", data, ParameterType.RequestBody);
+            request.AddParameter("json", data, ParameterType.GetOrPost);
             IRestResponse restResponse = _restClient.Execute(request);
 
             return restResponse.Content;

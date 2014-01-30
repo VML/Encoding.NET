@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/30/2014 2:23 PM</created>
-//  <updated>01/30/2014 4:01 PM by Ben Ramey</updated>
+//  <updated>01/30/2014 4:14 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -40,7 +40,7 @@ namespace VML.Encoding.Tests
 
             Assert.NotNull(request);
             Assert.Equal("json", request.Parameters.First().Name);
-            Assert.Equal(ParameterType.RequestBody, request.Parameters.First().Type);
+            Assert.Equal(ParameterType.GetOrPost, request.Parameters.First().Type);
             Assert.Equal(expectedData, request.Parameters[0].Value);
             Assert.Equal(mockClient.BaseUrl, endpoints.ManageEndpoint);
             mockClient.Received(1).Execute(request);
