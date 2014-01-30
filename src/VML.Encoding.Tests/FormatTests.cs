@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 3:14 PM</created>
-//  <updated>01/30/2014 10:14 AM by Ben Ramey</updated>
+//  <updated>01/30/2014 10:25 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -39,39 +39,6 @@ namespace VML.Encoding.Tests
         #endregion
 
         #region Public Methods
-        [Theory]
-        [InlineData(FormatOutput.flv, -2)]
-        [InlineData(FormatOutput.flv, 0)]
-        [InlineData(FormatOutput.threegp, 5)]
-        [InlineData(FormatOutput.android, 23)]
-        [InlineData(FormatOutput.android, -1)]
-        public void InvalidAudioChannelsNumber_IsInvalid(FormatOutput output, int value)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.Output = output;
-            format.AudioChannelsNumber = value;
-
-            Assert.False(format.IsValid());
-        }
-
-        [Theory]
-        [InlineData(FormatOutput.flv, 129)]
-        [InlineData(FormatOutput.flv, 2)]
-        [InlineData(FormatOutput.threegp, 1)]
-        [InlineData(FormatOutput.android, 1)]
-        [InlineData(FormatOutput.android, 2)]
-        public void ValidAudioChannelsNumber_IsValid(FormatOutput output, int value)
-        {
-            var format = _plant.Build<Format>();
-            format.Validate();
-
-            format.Output = output;
-            format.AudioChannelsNumber = value;
-
-            Assert.True(format.IsValid());
-        }
 
         [Theory]
         [InlineData(FormatOutput.roku_hls, "4.75k")]
@@ -102,6 +69,23 @@ namespace VML.Encoding.Tests
             format.Validate();
 
             format.AudioBufsize = value;
+
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData(FormatOutput.flv, -2)]
+        [InlineData(FormatOutput.flv, 0)]
+        [InlineData(FormatOutput.threegp, 5)]
+        [InlineData(FormatOutput.android, 23)]
+        [InlineData(FormatOutput.android, -1)]
+        public void InvalidAudioChannelsNumber_IsInvalid(FormatOutput output, int value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Output = output;
+            format.AudioChannelsNumber = value;
 
             Assert.False(format.IsValid());
         }
@@ -373,6 +357,23 @@ namespace VML.Encoding.Tests
             format.Validate();
 
             format.AudioBufsize = value;
+
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData(FormatOutput.flv, 129)]
+        [InlineData(FormatOutput.flv, 2)]
+        [InlineData(FormatOutput.threegp, 1)]
+        [InlineData(FormatOutput.android, 1)]
+        [InlineData(FormatOutput.android, 2)]
+        public void ValidAudioChannelsNumber_IsValid(FormatOutput output, int value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Output = output;
+            format.AudioChannelsNumber = value;
 
             Assert.True(format.IsValid());
         }
