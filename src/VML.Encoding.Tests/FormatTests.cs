@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 3:14 PM</created>
-//  <updated>01/30/2014 10:25 AM by Ben Ramey</updated>
+//  <updated>01/30/2014 10:32 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -297,6 +297,20 @@ namespace VML.Encoding.Tests
 
             format.Start = null;
             format.Finish = startOrFinish;
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData((short)0)]
+        [InlineData((short)-1)]
+        [InlineData((short)2)]
+        public void InvalidTwoPassDecoding_IsInvalid(short value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.TwoPassDecoding = value;
+
             Assert.False(format.IsValid());
         }
 
@@ -595,6 +609,18 @@ namespace VML.Encoding.Tests
             Assert.True(format.IsValid());
 
             format.Finish = startOrFinish;
+            Assert.True(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData((short)1)]
+        public void ValidTwoPassDecoding_IsValid(short value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.TwoPassDecoding = value;
+
             Assert.True(format.IsValid());
         }
 

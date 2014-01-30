@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 2:14 PM</created>
-//  <updated>01/30/2014 10:17 AM by Ben Ramey</updated>
+//  <updated>01/30/2014 10:31 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -28,7 +28,6 @@ namespace VML.Encoding.Model.Query
         [XmlElement(ElementName = "add_meta")]
         public bool AddMeta { get; set; }
 
-        [XmlElement(ElementName = "audio_bitrate")]
         [IgnoreNulls]
         [EncodingValidator(typeof(AudioBitrateValidator))]
         public string AudioBitrate { get; set; }
@@ -113,7 +112,7 @@ namespace VML.Encoding.Model.Query
         [XmlElement(ElementName = "crop_top")]
         public string CropTop { get; set; }
 
-        public string[] Destinations { get; set; }
+        public Uri[] Destinations { get; set; }
 
         [XmlElement(ElementName = "duration")]
         [IgnoreNulls]
@@ -210,7 +209,7 @@ namespace VML.Encoding.Model.Query
         public string Pan { get; set; }
 
         [XmlElement(ElementName = "Profile")]
-        public Profile Profile { get; set; }
+        public Profile? Profile { get; set; }
 
         [XmlElement(ElementName = "rc_init_occupancy")]
         public string RCInitOccupancy { get; set; }
@@ -255,6 +254,14 @@ namespace VML.Encoding.Model.Query
 
         [XmlElement(ElementName = "turbo")]
         public bool Turbo { get; set; }
+
+        [XmlElement(ElementName = "two_pass")]
+        public bool? TwoPass { get; set; }
+
+        [XmlElement(ElementName = "two_pass_decoding")]
+        [IgnoreNulls]
+        [RangeValidator(1, RangeBoundaryType.Inclusive, 1, RangeBoundaryType.Inclusive)]
+        public short? TwoPassDecoding { get; set; }
 
         [XmlElement(ElementName = "upct")]
         [IgnoreNulls]
