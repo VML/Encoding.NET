@@ -3,13 +3,16 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 8:59 AM</created>
-//  <updated>01/30/2014 11:24 AM by Ben Ramey</updated>
+//  <updated>01/30/2014 12:59 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
 
 using System.Linq;
 using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using VML.Encoding.Endpoints;
 using VML.Encoding.Interfaces;
 using VML.Encoding.Model.Enums;
 using VML.Encoding.Model.Interfaces;
@@ -25,7 +28,7 @@ namespace VML.Encoding
         #region Constants and Fields
 
         private readonly IEncodingCredentials _credentials;
-        private IQueryExecutor _executor;
+        private readonly IQueryExecutor _executor;
 
         #endregion
 
@@ -41,7 +44,7 @@ namespace VML.Encoding
             credentials.Validate();
 
             _credentials = credentials;
-            _executor = executor ?? new QueryExecutor();
+            _executor = executor ?? new QueryExecutor(new HttpsEndpoints());
         }
 
         #endregion
@@ -61,6 +64,14 @@ namespace VML.Encoding
         public bool Execute(EncodingQuery query)
         {
             query.Validate();
+
+            JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                    NullValueHandling = NullValueHandling.Ignore
+                };
+            string json = JsonConvert.SerializeObject(new { query }, settings);
+            _executor.ExecuteQuery(json);
 
             return false;
         }

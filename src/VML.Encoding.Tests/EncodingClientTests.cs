@@ -32,12 +32,12 @@ namespace VML.Encoding.Tests
         [PropertyData("ValidQueries")]
         public void Execute_SerializesQuery(EncodingQuery query, string serializedQuery)
         {
-            var creds = new TestCredentials();
-            var client = new EncodingClient(creds);
             var mockExecutor = Substitute.For<IQueryExecutor>();
+            var creds = new TestCredentials();
+            var client = new EncodingClient(creds, mockExecutor);
 
             client.Execute(query);
-            mockExecutor.Received().Execute(serializedQuery);
+            mockExecutor.Received().ExecuteQuery(serializedQuery);
         }
 
         [Theory]

@@ -1,9 +1,9 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="IQueryExecutor.cs" company="VML">
+//  <copyright file="IEncodingEndpoints.cs" company="VML">
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
-//  <created>01/30/2014 11:23 AM</created>
-//  <updated>01/30/2014 12:59 PM by Ben Ramey</updated>
+//  <created>01/30/2014 12:54 PM</created>
+//  <updated>01/30/2014 12:54 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -15,13 +15,12 @@ using System;
 
 namespace VML.Encoding.Interfaces
 {
-    public interface IQueryExecutor
+    public interface IEncodingEndpoints
     {
-        #region Public Methods
+        #region Public Properties
 
-        void ExecuteQuery(string data);
-
-        void ExecuteStatus(string data);
+        string ManageEndpoint { get; }
+        string StatusEndpoint { get; }
 
         #endregion
     }

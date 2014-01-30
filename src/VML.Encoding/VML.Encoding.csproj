@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Endpoints\HttpsEndpoints.cs" />
+    <Compile Include="Endpoints\HttpEndpoints.cs" />
+    <Compile Include="Interfaces\IEncodingEndpoints.cs" />
     <Compile Include="Interfaces\IQueryExecutor.cs" />
     <Compile Include="Model\BasicCredentials.cs" />
     <Compile Include="Model\Enums\DestinationStatus.cs" />
