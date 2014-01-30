@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 2:14 PM</created>
-//  <updated>01/30/2014 9:13 AM by Ben Ramey</updated>
+//  <updated>01/30/2014 10:06 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -186,6 +186,11 @@ namespace VML.Encoding.Model.Query
         public FormatOutput Output { get; set; }
 
         public Overlay[] Overlays { get; set; }
+
+        [XmlElement(ElementName = "pan")]
+        [IgnoreNulls]
+        [RegexValidator(@"^\d+,\d+:\d+,\d+$")]
+        public string Pan { get; set; }
 
         [XmlElement(ElementName = "Profile")]
         public Profile Profile { get; set; }

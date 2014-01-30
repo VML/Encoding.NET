@@ -39,6 +39,35 @@ namespace VML.Encoding.Tests
         #endregion
 
         #region Public Methods
+        [Theory]
+        [InlineData("bob")]
+        [InlineData("1,2:0")]
+        [InlineData(":0,2")]
+        [InlineData("1:0,2")]
+        [InlineData("-2,-2:-1,-3")]
+        [InlineData("100,212:-12,23")]
+        public void InvalidPan_IsInvalid(string value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Pan = value;
+
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData("1,1:0,0")]
+        [InlineData("100,200:29,32")]
+        public void ValidPan_IsValid(string value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.Pan = value;
+
+            Assert.True(format.IsValid());
+        }
 
         [Theory]
         [InlineData(-100)]
