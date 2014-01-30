@@ -40,6 +40,59 @@ namespace VML.Encoding.Tests
 
         #region Public Methods
         [Theory]
+        [InlineData(-100)]
+        [InlineData(-1)]
+        [InlineData(101)]
+        public void InvalidAudioNormalization_IsInvalid(int value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.AudioNormalization = value;
+
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(100)]
+        public void ValidAudioNormalization_IsValid(int value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.AudioNormalization = value;
+
+            Assert.True(format.IsValid());
+        }
+        [Theory]
+        [InlineData(-100)]
+        public void InvalidVolume_IsInvalid(int volume)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.AudioVolume = volume;
+
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(100)]
+        [InlineData(12312)]
+        public void ValidVolume_IsValid(int volume)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.AudioVolume = volume;
+
+            Assert.True(format.IsValid());
+        }
+        [Theory]
         [InlineData(FormatOutput.roku_hls, -100)]
         [InlineData(FormatOutput.threegp, 9000)]
         [InlineData(FormatOutput.flv, 10000)]

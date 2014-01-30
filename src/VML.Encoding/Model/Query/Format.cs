@@ -45,7 +45,9 @@ namespace VML.Encoding.Model.Query
         public bool? AudioConstantBitrate { get; set; }
 
         [XmlElement(ElementName = "audio_normalization")]
-        public string AudioNormalization { get; set; }
+        [IgnoreNulls]
+        [RangeValidator(0, RangeBoundaryType.Inclusive, 100, RangeBoundaryType.Inclusive)]
+        public int? AudioNormalization { get; set; }
 
         [XmlElement(ElementName = "audio_sample_rate")]
         [IgnoreNulls]
@@ -57,7 +59,9 @@ namespace VML.Encoding.Model.Query
         public string AudioSync { get; set; }
 
         [XmlElement(ElementName = "audio_volume")]
-        public string AudioVolume { get; set; }
+        [IgnoreNulls]
+        [RangeValidator(0, RangeBoundaryType.Inclusive, 0, RangeBoundaryType.Ignore)]
+        public int? AudioVolume { get; set; }
 
         [XmlElement(ElementName = "bframes")]
         public string BFrames { get; set; }
