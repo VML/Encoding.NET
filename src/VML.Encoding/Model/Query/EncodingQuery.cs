@@ -48,7 +48,7 @@ namespace VML.Encoding.Model.Query
             | QueryAction.ProcessMedia
             | QueryAction.CancelMedia
             | QueryAction.GetMediaInfo
-            | QueryAction.GetStatus)]
+            | QueryAction.GetStatus, MessageTemplate = "MediaId must be set for this query action.")]
         public string MediaId { get; set; }
 
         [XmlElement(ElementName = "notify")]
@@ -72,7 +72,7 @@ namespace VML.Encoding.Model.Query
         public string Region { get; set; }
 
         [XmlElement(ElementName = "source")]
-        [ActionDependentRequired(QueryAction.AddMedia | QueryAction.AddMediaBenchmark)]
+        [ActionDependentRequired(QueryAction.AddMedia | QueryAction.AddMediaBenchmark, MessageTemplate = "SourceFiles must be set for this query action.")]
         public string[] SourceFiles { get; set; }
 
         [XmlElement(ElementName = "split_screen")]

@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/28/2014 5:59 PM</created>
-//  <updated>01/30/2014 11:05 AM by Ben Ramey</updated>
+//  <updated>01/30/2014 12:25 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -45,11 +45,11 @@ namespace VML.Encoding.Model.Validation.Attributes
 
             if (targetType == typeof(string))
             {
-                validator = new ActionDependentRequiredValidator<string>(_actions, null, null);
+                validator = new ActionDependentRequiredValidator<string>(_actions, MessageTemplate, Tag);
             }
             else if (targetType == typeof(string[]))
             {
-                validator = new ActionDependentRequiredValidator<string[]>(_actions, null, null);
+                validator = new ActionDependentRequiredValidator<string[]>(_actions, MessageTemplate, Tag);
             }
 
             if (validator == null)
