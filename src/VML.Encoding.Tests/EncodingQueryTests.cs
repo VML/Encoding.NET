@@ -3,17 +3,19 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/24/2014 12:31 PM</created>
-//  <updated>01/30/2014 11:05 AM by Ben Ramey</updated>
+//  <updated>01/30/2014 4:01 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Plant.Core;
 using VML.Encoding.Model.Enums;
 using VML.Encoding.Model.Query;
 using VML.Encoding.Model.Validation;
+using VML.Encoding.Tests.Support;
 using VML.Encoding.Tests.TheoryData;
 using Xunit;
 using Xunit.Extensions;
@@ -40,6 +42,20 @@ namespace VML.Encoding.Tests
         #endregion
 
         #region Public Methods
+
+        [Fact]
+        public void Constructor_NullCredentials_Throws()
+        {
+            Assert.Throws<ArgumentNullException>(() => new EncodingQuery(null));
+        }
+
+        [Fact]
+        public void Constructor_Properties_NotNull()
+        {
+            var query = new EncodingQuery(new TestCredentials());
+
+            Assert.NotNull(query.SourceFiles);
+        }
 
         [Theory]
         [ClassData(typeof(MediaIdRequiredQueryActions))]
@@ -127,7 +143,7 @@ namespace VML.Encoding.Tests
             EncodingQuery query = _plant.Create<EncodingQuery>();
             Assert.True(query.IsValid());
 
-            query.SourceFiles = new string[0];
+            query.SourceFiles = new List<Uri>();
             Assert.False(query.IsValid());
         }
 

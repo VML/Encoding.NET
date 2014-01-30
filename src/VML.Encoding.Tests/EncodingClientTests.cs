@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/24/2014 12:31 PM</created>
-//  <updated>01/30/2014 11:05 AM by Ben Ramey</updated>
+//  <updated>01/30/2014 4:01 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -27,18 +27,6 @@ namespace VML.Encoding.Tests
     public partial class EncodingClientTests
     {
         #region Public Methods
-
-        [Theory]
-        [PropertyData("ValidQueries")]
-        public void Execute_SerializesQuery(EncodingQuery query, string serializedQuery)
-        {
-            var mockExecutor = Substitute.For<IQueryExecutor>();
-            var creds = new TestCredentials();
-            var client = new EncodingClient(creds, mockExecutor);
-
-            client.Execute(query);
-            mockExecutor.Received().ExecuteQuery(serializedQuery);
-        }
 
         [Theory]
         [PropertyData("InvalidCredentials")]
@@ -74,6 +62,18 @@ namespace VML.Encoding.Tests
 
             Assert.Throws<ValidationException>(
                 () => client.Execute(query));
+        }
+
+        [Theory]
+        [PropertyData("ValidQueries")]
+        public void Execute_SerializesQuery(EncodingQuery query, string serializedQuery)
+        {
+            var mockExecutor = Substitute.For<IQueryExecutor>();
+            var creds = new TestCredentials();
+            var client = new EncodingClient(creds, mockExecutor);
+
+            client.Execute(query);
+            mockExecutor.Received().ExecuteQuery(serializedQuery);
         }
 
         #endregion

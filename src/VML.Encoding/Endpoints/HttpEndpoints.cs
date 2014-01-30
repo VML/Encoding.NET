@@ -2,8 +2,8 @@
 //  <copyright file="HttpEndpoints.cs" company="VML">
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
-//  <created>01/30/2014 12:56 PM</created>
-//  <updated>01/30/2014 12:58 PM by Ben Ramey</updated>
+//  <created>01/30/2014 2:23 PM</created>
+//  <updated>01/30/2014 4:01 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings

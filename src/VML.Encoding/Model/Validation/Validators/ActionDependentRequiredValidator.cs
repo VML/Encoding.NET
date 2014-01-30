@@ -3,12 +3,13 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/28/2014 5:59 PM</created>
-//  <updated>01/30/2014 11:05 AM by Ben Ramey</updated>
+//  <updated>01/30/2014 4:01 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Practices.EnterpriseLibrary.Validation;
 using VML.Encoding.Model.Enums;
@@ -65,9 +66,9 @@ namespace VML.Encoding.Model.Validation.Validators
                 string stringToValidate = objectToValidate as string;
                 ValidateString(stringToValidate, key, validationResults, target);
             }
-            else if (typeof(T) == typeof(string[]))
+            else if (typeof(T) == typeof(IList<Uri>))
             {
-                string[] arrayToValidate = objectToValidate as string[];
+                IList<Uri> arrayToValidate = objectToValidate as IList<Uri>;
                 ValidateStringArray(arrayToValidate, key, validationResults, target);
             }
         }
@@ -85,10 +86,10 @@ namespace VML.Encoding.Model.Validation.Validators
         }
 
         private void ValidateStringArray(
-            string[] arrayToValidate, string key, ValidationResults validationResults, EncodingQuery target)
+            IList<Uri> arrayToValidate, string key, ValidationResults validationResults, EncodingQuery target)
         {
             if (arrayToValidate != null
-                && arrayToValidate.Length > 0)
+                && arrayToValidate.Count > 0)
             {
                 return;
             }

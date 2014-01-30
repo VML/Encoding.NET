@@ -3,11 +3,12 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 2:14 PM</created>
-//  <updated>01/30/2014 12:42 PM by Ben Ramey</updated>
+//  <updated>01/30/2014 4:01 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
 
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System;
@@ -29,8 +30,15 @@ namespace VML.Encoding.Model.Query
 
         public EncodingQuery(IEncodingCredentials credentials)
         {
+            if (credentials == null)
+            {
+                throw new ArgumentNullException("credentials");
+            }
+
             UserId = credentials.UserId;
             UserKey = credentials.UserKey;
+
+            SourceFiles = new List<Uri>();
         }
 
         #endregion
@@ -73,7 +81,7 @@ namespace VML.Encoding.Model.Query
         [JsonProperty(PropertyName = "source")]
         [ActionDependentRequired(QueryAction.AddMedia | QueryAction.AddMediaBenchmark,
             MessageTemplate = "SourceFiles must be set for this query action.")]
-        public string[] SourceFiles { get; set; }
+        public IList<Uri> SourceFiles { get; set; }
 
         [JsonProperty(PropertyName = "split_screen")]
         public dynamic SplitScreen { get; set; }

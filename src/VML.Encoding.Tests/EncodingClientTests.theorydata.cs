@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/24/2014 12:31 PM</created>
-//  <updated>01/30/2014 12:50 PM by Ben Ramey</updated>
+//  <updated>01/30/2014 4:01 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -52,9 +52,10 @@ namespace VML.Encoding.Tests
                                     {
                                         Action = QueryAction.AddMedia,
                                         SourceFiles =
-                                            new[]
+                                            new List<Uri>
                                                 {
-                                                    "http://libertylink.vmldev.com/Templates/RelatePlus/Styles/video/poc.mp4"
+                                                    new Uri(
+                                                        "http://libertylink.vmldev.com/Templates/RelatePlus/Styles/video/poc.mp4")
                                                 },
                                         Format = new
                                             {
