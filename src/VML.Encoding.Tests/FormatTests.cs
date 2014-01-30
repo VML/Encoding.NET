@@ -39,6 +39,34 @@ namespace VML.Encoding.Tests
         #endregion
 
         #region Public Methods
+        [Theory]
+        [InlineData("-129k")]
+        [InlineData("0k")]
+        [InlineData("0")]
+        [InlineData("-1212")]
+        public void InvalidAudioMaxRate_IsInvalid(string value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.AudioMaxRate = value;
+
+            Assert.False(format.IsValid());
+        }
+
+        [Theory]
+        [InlineData("129k")]
+        [InlineData("12k")]
+        [InlineData("23")]
+        public void ValidAudioMaxRate_IsValid(string value)
+        {
+            var format = _plant.Build<Format>();
+            format.Validate();
+
+            format.AudioMaxRate = value;
+
+            Assert.True(format.IsValid());
+        }
 
         [Theory]
         [InlineData("-129k")]
