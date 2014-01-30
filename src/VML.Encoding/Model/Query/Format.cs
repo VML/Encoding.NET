@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 2:14 PM</created>
-//  <updated>01/30/2014 10:14 AM by Ben Ramey</updated>
+//  <updated>01/30/2014 10:17 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -39,7 +39,9 @@ namespace VML.Encoding.Model.Query
         public string AudioBufsize { get; set; }
 
         [XmlElement(ElementName = "audio_channels_number")]
-        public int AudioChannelsNumber { get; set; }
+        [IgnoreNulls]
+        [EncodingValidator(typeof(AudioChannelsNumberValidator))]
+        public int? AudioChannelsNumber { get; set; }
 
         [XmlElement(ElementName = "audio_codec")]
         [IgnoreNulls]
