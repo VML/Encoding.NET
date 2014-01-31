@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/30/2014 2:23 PM</created>
-//  <updated>01/30/2014 4:43 PM by Ben Ramey</updated>
+//  <updated>01/31/2014 10:38 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -22,11 +22,12 @@ using Xunit;
 
 namespace VML.Encoding.Tests
 {
-    public class EncodingAPITests
+    public partial class EncodingAPITests
     {
         #region Constants and Fields
 
         private readonly EncodingAPI _api;
+        private readonly IEncodingClient _client;
         private readonly BasePlant _plant;
 
         #endregion
@@ -35,25 +36,10 @@ namespace VML.Encoding.Tests
 
         public EncodingAPITests()
         {
-            var client = Substitute.For<IEncodingClient>();
-            // add media response
-            client
-                .Execute(Arg.Is<EncodingQuery>(eq => eq.Action == QueryAction.AddMedia))
-                .Returns("{\"response\":{\"message\":\"Added\",\"MediaID\":\"some_mediaid\"}}");
-            // getmedialist response
-            client
-                .Execute(Arg.Is<EncodingQuery>(eq => eq.Action == QueryAction.GetMediaList))
-                .Returns(
-                    "{\"response\":{\"media\":[{\"mediafile\":\"sourcefile\",\"mediaid\":\"mediaid\",\"mediastatus\":\"mediastatus\",\"createdate\":\"2013-01-01 12:12:12\",\"startdate\":\"2013-01-01 12:12:12\",\"finishdate\":\"2013-01-01 12:12:12\"}]}}");
-            // getstatus response
-            client
-                .Execute(Arg.Is<EncodingQuery>(eq => eq.Action == QueryAction.GetStatus))
-                .Returns(
-                    @"{""response"":{""id"":""[MediaID]"",""userid"":""[UserID]"",""sourcefile"":""[SourceFile]"",""status"":""[MediaStatus]"",""notifyurl"":""[NotifyURL]"",""created"":""2013-1-1"",""started"":""2013-1-1"",""finished"":""2013-1-1"",""prevstatus"":""[MediaStatus]"",""downloaded"":""2013-1-1"",""uploaded"":""0000-00-00 00:00:00"",""time_left"":""[TotalTimeLeft]"",""progress"":""[TotalProgress]"",""time_left_current"":""[StatusTimeLeft]"",""progress_current"":""[StatusProgress]"",""format"":{""id"":""[ID]"",""status"":""[Status]"",""created"":""2013-1-1"",""started"":""2013-1-1"",""finished"":""2013-1-1"",""s3_destination"":""[TempS3Link]"",""cf_destination"":""[TempCFLink]"",""destination"":[""[URL]"",""[URL_2]"",""[URL_N]""],""destination_status"":[""[Saved|Error(ErrorDescription)]"",""[Saved|Error(ErrorDescription)]"",""[Saved|Error(ErrorDescription)]""]}}}");
-            
-
-            _api = new EncodingAPI(client);
             _plant = new BasePlant().WithBlueprintsFromAssemblyOf<EncodingQueryTests>();
+
+            _client = Substitute.For<IEncodingClient>();
+            _api = new EncodingAPI(_client);
         }
 
         #endregion
@@ -63,6 +49,10 @@ namespace VML.Encoding.Tests
         [Fact]
         public void AddMedia()
         {
+            _client
+                .Execute(Arg.Is<EncodingQuery>(eq => eq.Action == QueryAction.AddMedia))
+                .Returns(AddMediaResponse);
+
             var query = _plant.Create<EncodingQuery>();
             AddMediaResponse response = _api.AddMedia(query);
 
@@ -80,7 +70,14 @@ namespace VML.Encoding.Tests
         public void GetMediaList()
         {
             var query = _plant.Create<EncodingQuery>();
-            GetMediaListResponse response = _api.GetMediaList(query);
+            query.Action = QueryAction.GetMediaList;
+
+            _client.CreateQuery(Arg.Any<QueryAction>())
+                   .Returns(query);
+            _client.Execute(Arg.Is<EncodingQuery>(eq => TestForMediaList(eq)))
+                .Returns(GetMediaListResponse);
+
+            GetMediaListResponse response = _api.GetMediaList();
 
             Assert.NotNull(response);
             Assert.Equal(1, response.Media.Length);
@@ -92,26 +89,45 @@ namespace VML.Encoding.Tests
             Assert.Equal("sourcefile", response.Media[0].MediaFile);
         }
 
-        [Fact]
-        public void GetMediaList_NullQuery_Throws()
+        protected bool TestForMediaList(EncodingQuery eq)
         {
-            Assert.Throws<ArgumentNullException>(() => _api.GetMediaList(null));
+            return eq.Action == QueryAction.GetMediaList;
         }
 
         [Fact]
         public void GetStatus()
         {
             var query = _plant.Create<EncodingQuery>();
-            GetStatusResponse response = _api.GetStatus(query);
+            query.Action = QueryAction.GetStatus;
+
+            _client.CreateQuery(Arg.Any<QueryAction>())
+                   .Returns(query);
+            _client
+                .Execute(Arg.Is<EncodingQuery>(eq => eq.Action == QueryAction.GetStatus))
+                .Returns(GetStatusResponse);
+
+            GetStatusResponse response = _api.GetStatus(query.MediaId);
 
             Assert.NotNull(response);
             Assert.Equal("[MediaID]", response.ID);
         }
 
         [Fact]
-        public void GetStatus_NullQuery_Throws()
+        public void GetStatus_BlankMediaId_Throws()
+        {
+            Assert.Throws<ArgumentNullException>(() => _api.GetStatus(string.Empty));
+        }
+
+        [Fact]
+        public void GetStatus_NullMediaId_Throws()
         {
             Assert.Throws<ArgumentNullException>(() => _api.GetStatus(null));
+        }
+
+        [Fact]
+        public void GetStatus_WhitespaceMediaId_Throws()
+        {
+            Assert.Throws<ArgumentNullException>(() => _api.GetStatus(string.Empty));
         }
 
         #endregion

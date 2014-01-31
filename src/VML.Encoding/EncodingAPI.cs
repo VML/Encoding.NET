@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/30/2014 2:23 PM</created>
-//  <updated>01/30/2014 4:43 PM by Ben Ramey</updated>
+//  <updated>01/31/2014 10:17 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -61,24 +61,21 @@ namespace VML.Encoding
             return _client.CreateQuery(action);
         }
 
-        public GetMediaListResponse GetMediaList(EncodingQuery query)
+        public GetMediaListResponse GetMediaList()
         {
-            if (query == null)
-            {
-                throw new ArgumentNullException("query");
-            }
-
-            query.Action = QueryAction.GetMediaList;
+            var query = CreateQuery(QueryAction.GetMediaList);
             return ExecuteQuery<GetMediaListResponse>(query);
         }
 
-        public GetStatusResponse GetStatus(EncodingQuery query)
+        public GetStatusResponse GetStatus(string mediaId)
         {
-            if (query == null)
+            if (string.IsNullOrWhiteSpace(mediaId))
             {
-                throw new ArgumentNullException("query");
+                throw new ArgumentNullException("mediaId");
             }
-            query.Action = QueryAction.GetStatus;
+
+            var query = CreateQuery(QueryAction.GetStatus);
+            query.MediaId = mediaId;
             return ExecuteQuery<GetStatusResponse>(query);
         }
 
