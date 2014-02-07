@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/30/2014 2:23 PM</created>
-//  <updated>01/31/2014 10:38 AM by Ben Ramey</updated>
+//  <updated>02/07/2014 2:07 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -13,6 +13,7 @@ using System.Linq;
 using NSubstitute;
 using Plant.Core;
 using VML.Encoding.Interfaces;
+using VML.Encoding.Model;
 using VML.Encoding.Model.Enums;
 using VML.Encoding.Model.Query;
 using VML.Encoding.Model.Query.Response;
@@ -67,6 +68,25 @@ namespace VML.Encoding.Tests
         }
 
         [Fact]
+        public void ExecuteQuery_WrongCredentials_ParsesResponse()
+        {
+            var query = _plant.Create<EncodingQuery>();
+            query.Action = QueryAction.GetMediaList;
+            _client
+                .Execute(Arg.Is<EncodingQuery>(eq => eq.Action == QueryAction.GetMediaList))
+                .Returns(WrongCredsResponse);
+            _client.CreateQuery(Arg.Any<QueryAction>())
+                   .Returns(query);
+
+            GetMediaListResponse response = null;
+            Assert.DoesNotThrow(() => response = _api.GetMediaList());
+            Assert.NotNull(response);
+            Assert.NotNull(response.Errors);
+            Assert.NotNull(response.Errors.Error);
+            Assert.NotEqual(string.Empty, response.Errors.Error);
+        }
+
+        [Fact]
         public void GetMediaList()
         {
             var query = _plant.Create<EncodingQuery>();
@@ -75,7 +95,7 @@ namespace VML.Encoding.Tests
             _client.CreateQuery(Arg.Any<QueryAction>())
                    .Returns(query);
             _client.Execute(Arg.Is<EncodingQuery>(eq => TestForMediaList(eq)))
-                .Returns(GetMediaListResponse);
+                   .Returns(GetMediaListResponse);
 
             GetMediaListResponse response = _api.GetMediaList();
 
@@ -87,11 +107,6 @@ namespace VML.Encoding.Tests
             Assert.Equal("mediastatus", response.Media[0].MediaStatus);
             Assert.Equal("mediaid", response.Media[0].MediaID);
             Assert.Equal("sourcefile", response.Media[0].MediaFile);
-        }
-
-        protected bool TestForMediaList(EncodingQuery eq)
-        {
-            return eq.Action == QueryAction.GetMediaList;
         }
 
         [Fact]
@@ -128,6 +143,15 @@ namespace VML.Encoding.Tests
         public void GetStatus_WhitespaceMediaId_Throws()
         {
             Assert.Throws<ArgumentNullException>(() => _api.GetStatus(string.Empty));
+        }
+
+        #endregion
+
+        #region Methods
+
+        protected bool TestForMediaList(EncodingQuery eq)
+        {
+            return eq.Action == QueryAction.GetMediaList;
         }
 
         #endregion

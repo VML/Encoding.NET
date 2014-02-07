@@ -19,7 +19,7 @@ namespace VML.Encoding.Model.Query.Response
     {
         #region Public Properties
 
-        public string[] Error { get; set; }
+        public string Error { get; set; }
 
         #endregion
     }

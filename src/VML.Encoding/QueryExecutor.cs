@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/30/2014 11:23 AM</created>
-//  <updated>01/30/2014 4:01 PM by Ben Ramey</updated>
+//  <updated>02/07/2014 1:53 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -28,6 +28,11 @@ namespace VML.Encoding
         #endregion
 
         #region Constructors and Destructors
+
+        public QueryExecutor()
+            : this(null, null)
+        {
+        }
 
         public QueryExecutor(IEncodingEndpoints endpoints)
             : this(endpoints, null)

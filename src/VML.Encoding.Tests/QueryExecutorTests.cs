@@ -11,8 +11,13 @@
 using System;
 using System.Linq;
 using NSubstitute;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using RestSharp;
 using VML.Encoding.Endpoints;
+using VML.Encoding.Model;
+using VML.Encoding.Model.Enums;
+using VML.Encoding.Model.Query;
 using Xunit;
 
 #endregion
