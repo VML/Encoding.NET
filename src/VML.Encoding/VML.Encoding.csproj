@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IEncodingAPI.cs" />
     <Compile Include="Model\Query\Response\AddMediaResponse.cs" />
     <Compile Include="Model\Query\Response\BaseResponse.cs" />
     <Compile Include="EncodingAPI.cs" />
