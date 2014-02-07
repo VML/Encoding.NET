@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/30/2014 2:23 PM</created>
-//  <updated>01/30/2014 4:01 PM by Ben Ramey</updated>
+//  <updated>02/07/2014 10:08 AM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -20,6 +20,17 @@ namespace VML.Encoding.Model.Query.Response
         #region Public Properties
 
         public ResponseError Errors { get; set; }
+
+        public bool HasError
+        {
+            get
+            {
+                return Errors != null
+                       && Errors.Error != null
+                       && Errors.Error.Length > 0;
+            }
+        }
+
         public string Message { get; set; }
 
         #endregion
