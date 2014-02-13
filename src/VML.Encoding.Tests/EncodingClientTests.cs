@@ -44,7 +44,7 @@ namespace VML.Encoding.Tests
                     ContractResolver = new CamelCasePropertyNamesContractResolver(),
                     NullValueHandling = NullValueHandling.Ignore
                 };
-            string serializedQuery = JsonConvert.SerializeObject(new { query }, settings);
+            string serializedQuery = query.ToString(Formatting.Indented);
             var mockExecutor = Substitute.For<IQueryExecutor>();
             var creds = new TestCredentials();
             var client = new EncodingClient(creds, mockExecutor);

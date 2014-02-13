@@ -46,7 +46,7 @@ namespace VML.Encoding.Tests
                     {
                         new object[]
                             {
-                                new JObject(new
+                                JObject.FromObject(new
                                     {
                                         userid = new TestCredentials().UserId,
                                         userkey = new TestCredentials().UserKey,
