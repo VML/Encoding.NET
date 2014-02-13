@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentAssertions">
+      <HintPath>..\packages\FluentAssertions.2.2.0.0\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
@@ -69,19 +72,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicCredentialsTests.cs" />
-    <Compile Include="Blueprints\EncodingQueryBlueprint.cs" />
     <Compile Include="EncodingAPITests.constants.cs" />
     <Compile Include="EncodingAPITests.cs" />
-    <Compile Include="EncodingNotificationTests.theorydata.cs" />
-    <Compile Include="EncodingQueryTests.cs" />
     <Compile Include="EncodingClientTests.theorydata.cs" />
     <Compile Include="EncodingClientTests.cs" />
-    <Compile Include="EncodingNotificationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryExecutorTests.cs" />
     <Compile Include="Support\TestCredentials.cs" />
-    <Compile Include="TheoryData\SourceFileRequiredQueryActions.cs" />
-    <Compile Include="TheoryData\MediaIdRequiredQueryActions.cs" />
     <Compile Include="ValidationExtensionsTests.cs" />
   </ItemGroup>
   <ItemGroup>

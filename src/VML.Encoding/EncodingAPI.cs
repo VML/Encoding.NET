@@ -3,19 +3,15 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/30/2014 2:23 PM</created>
-//  <updated>02/07/2014 9:31 AM by Ben Ramey</updated>
+//  <updated>02/13/2014 1:30 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
 
 using System;
 using System.Linq;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using VML.Encoding.Interfaces;
-using VML.Encoding.Model.Enums;
-using VML.Encoding.Model.Interfaces;
-using VML.Encoding.Model.Query;
-using VML.Encoding.Model.Query.Response;
 
 #endregion
 
@@ -45,50 +41,55 @@ namespace VML.Encoding
 
         #region Public Methods
 
-        public AddMediaResponse AddMedia(EncodingQuery query)
+        public JObject AddMedia(JObject query)
         {
             if (query == null)
             {
                 throw new ArgumentNullException("query");
             }
 
-            query.Action = QueryAction.AddMedia;
-            return ExecuteQuery<AddMediaResponse>(query);
+            query["action"] = "AddMedia";
+            return ExecuteQuery(query);
         }
 
-        public EncodingQuery CreateQuery(QueryAction action)
+        public JObject CancelMedia(string mediaId)
         {
-            return _client.CreateQuery(action);
+            JObject query = new JObject();
+            query["action"] = "CancelMedia";
+            query["mediaid"] = mediaId;
+            return ExecuteQuery(query);
         }
 
-        public GetMediaListResponse GetMediaList()
+        public JObject GetMediaList()
         {
-            var query = CreateQuery(QueryAction.GetMediaList);
-            return ExecuteQuery<GetMediaListResponse>(query);
+            JObject query = new JObject();
+            query["action"] = "GetMediaList";
+            return ExecuteQuery(query);
         }
 
-        public GetStatusResponse GetStatus(string mediaId)
+        public JObject GetStatus(string mediaId)
         {
             if (string.IsNullOrWhiteSpace(mediaId))
             {
                 throw new ArgumentNullException("mediaId");
             }
 
-            var query = CreateQuery(QueryAction.GetStatus);
-            query.MediaId = mediaId;
-            return ExecuteQuery<GetStatusResponse>(query);
+            JObject query = new JObject();
+            query["action"] = "GetStatus";
+            query["mediaid"] = mediaId;
+            return ExecuteQuery(query);
         }
 
         #endregion
 
         #region Methods
 
-        private T ExecuteQuery<T>(EncodingQuery query)
+        private JObject ExecuteQuery(JObject query)
         {
             string responseContent = _client.Execute(query);
+            JObject rawResponse = JObject.Parse(responseContent);
 
-            ResponseWrapper<T> responseWrapper = JsonConvert.DeserializeObject<ResponseWrapper<T>>(responseContent);
-            return responseWrapper.Response;
+            return (JObject)rawResponse["response"];
         }
 
         #endregion

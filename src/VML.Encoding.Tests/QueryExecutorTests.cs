@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/30/2014 2:23 PM</created>
-//  <updated>01/30/2014 4:14 PM by Ben Ramey</updated>
+//  <updated>02/13/2014 1:11 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -11,13 +11,8 @@
 using System;
 using System.Linq;
 using NSubstitute;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using RestSharp;
 using VML.Encoding.Endpoints;
-using VML.Encoding.Model;
-using VML.Encoding.Model.Enums;
-using VML.Encoding.Model.Query;
 using Xunit;
 
 #endregion

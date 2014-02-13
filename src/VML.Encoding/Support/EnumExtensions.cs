@@ -2,8 +2,8 @@
 //  <copyright file="EnumExtensions.cs" company="VML">
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
-//  <created>01/29/2014 4:02 PM</created>
-//  <updated>01/30/2014 4:01 PM by Ben Ramey</updated>
+//  <created>02/13/2014 12:27 PM</created>
+//  <updated>02/13/2014 1:11 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -14,7 +14,7 @@ using System.Linq;
 
 #endregion
 
-namespace VML.Encoding.Support.Extensions
+namespace VML.Encoding.Support
 {
     public static class EnumExtensions
     {

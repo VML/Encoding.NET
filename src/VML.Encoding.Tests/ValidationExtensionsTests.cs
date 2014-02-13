@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/24/2014 12:31 PM</created>
-//  <updated>01/30/2014 4:01 PM by Ben Ramey</updated>
+//  <updated>02/13/2014 1:11 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
-using VML.Encoding.Model.Validation;
+using VML.Encoding.Support;
 using Xunit;
 using Xunit.Extensions;
 

@@ -3,14 +3,14 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 9:02 AM</created>
-//  <updated>01/30/2014 4:01 PM by Ben Ramey</updated>
+//  <updated>02/13/2014 1:11 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
 
 using System;
 using System.Linq;
-using VML.Encoding.Model.Interfaces;
+using VML.Encoding.Interfaces;
 
 #endregion
 

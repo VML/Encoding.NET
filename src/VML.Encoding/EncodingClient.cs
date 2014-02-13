@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/29/2014 8:59 AM</created>
-//  <updated>01/30/2014 4:01 PM by Ben Ramey</updated>
+//  <updated>02/13/2014 1:31 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -11,13 +11,11 @@
 using System.Linq;
 using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using VML.Encoding.Endpoints;
 using VML.Encoding.Interfaces;
-using VML.Encoding.Model.Enums;
-using VML.Encoding.Model.Interfaces;
-using VML.Encoding.Model.Query;
-using VML.Encoding.Model.Validation;
+using VML.Encoding.Support;
 
 #endregion
 
@@ -51,19 +49,10 @@ namespace VML.Encoding
 
         #region Public Methods
 
-        public EncodingQuery CreateQuery(QueryAction action)
+        public string Execute(JObject query)
         {
-            var query = new EncodingQuery(_credentials)
-                {
-                    Action = action
-                };
-
-            return query;
-        }
-
-        public string Execute(EncodingQuery query)
-        {
-            query.Validate();
+            query["userid"] = _credentials.UserId;
+            query["userkey"] = _credentials.UserKey;
 
             JsonSerializerSettings settings = new JsonSerializerSettings
                 {

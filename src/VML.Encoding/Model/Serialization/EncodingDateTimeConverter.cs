@@ -2,8 +2,8 @@
 //  <copyright file="EncodingDateTimeConverter.cs" company="VML">
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
-//  <created>01/30/2014 5:30 PM</created>
-//  <updated>01/30/2014 5:40 PM by Ben Ramey</updated>
+//  <created>01/31/2014 11:14 AM</created>
+//  <updated>02/13/2014 1:11 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings

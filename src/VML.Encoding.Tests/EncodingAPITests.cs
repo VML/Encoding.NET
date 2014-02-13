@@ -3,7 +3,7 @@
 //   Copyright VML 2014. All rights reserved.
 //  </copyright>
 //  <created>01/30/2014 2:23 PM</created>
-//  <updated>02/07/2014 2:07 PM by Ben Ramey</updated>
+//  <updated>02/13/2014 1:11 PM by Ben Ramey</updated>
 // --------------------------------------------------------------------------------------------------------------------
 
 #region Usings
@@ -11,12 +11,8 @@
 using System;
 using System.Linq;
 using NSubstitute;
-using Plant.Core;
+using Newtonsoft.Json.Linq;
 using VML.Encoding.Interfaces;
-using VML.Encoding.Model;
-using VML.Encoding.Model.Enums;
-using VML.Encoding.Model.Query;
-using VML.Encoding.Model.Query.Response;
 using Xunit;
 
 #endregion
@@ -29,7 +25,6 @@ namespace VML.Encoding.Tests
 
         private readonly EncodingAPI _api;
         private readonly IEncodingClient _client;
-        private readonly BasePlant _plant;
 
         #endregion
 
@@ -37,8 +32,6 @@ namespace VML.Encoding.Tests
 
         public EncodingAPITests()
         {
-            _plant = new BasePlant().WithBlueprintsFromAssemblyOf<EncodingQueryTests>();
-
             _client = Substitute.For<IEncodingClient>();
             _api = new EncodingAPI(_client);
         }
@@ -47,18 +40,18 @@ namespace VML.Encoding.Tests
 
         #region Public Methods
 
+
         [Fact]
         public void AddMedia()
         {
-            _client
-                .Execute(Arg.Is<EncodingQuery>(eq => eq.Action == QueryAction.AddMedia))
-                .Returns(AddMediaResponse);
+            _client.Execute(Arg.Any<JObject>()).Returns(AddMediaResponse);
 
-            var query = _plant.Create<EncodingQuery>();
-            AddMediaResponse response = _api.AddMedia(query);
+            JObject query = new JObject();
+            query["action"] = "AddMedia";
+            JObject response = _api.AddMedia(query);
 
             Assert.NotNull(response);
-            Assert.Equal("Added", response.Message);
+            Assert.Equal("Added", response["message"]);
         }
 
         [Fact]
@@ -70,61 +63,48 @@ namespace VML.Encoding.Tests
         [Fact]
         public void ExecuteQuery_WrongCredentials_ParsesResponse()
         {
-            var query = _plant.Create<EncodingQuery>();
-            query.Action = QueryAction.GetMediaList;
             _client
-                .Execute(Arg.Is<EncodingQuery>(eq => eq.Action == QueryAction.GetMediaList))
+                .Execute(Arg.Any<JObject>())
                 .Returns(WrongCredsResponse);
-            _client.CreateQuery(Arg.Any<QueryAction>())
-                   .Returns(query);
 
-            GetMediaListResponse response = null;
+            JObject response = null;
             Assert.DoesNotThrow(() => response = _api.GetMediaList());
             Assert.NotNull(response);
-            Assert.NotNull(response.Errors);
-            Assert.NotNull(response.Errors.Error);
-            Assert.NotEqual(string.Empty, response.Errors.Error);
+            Assert.NotNull(response["errors"]);
+            Assert.NotNull(response["errors"]["error"]);
+            Assert.NotEqual(string.Empty, response["errors"]["error"]);
         }
 
         [Fact]
         public void GetMediaList()
         {
-            var query = _plant.Create<EncodingQuery>();
-            query.Action = QueryAction.GetMediaList;
-
-            _client.CreateQuery(Arg.Any<QueryAction>())
-                   .Returns(query);
-            _client.Execute(Arg.Is<EncodingQuery>(eq => TestForMediaList(eq)))
+            _client.Execute(Arg.Any<JObject>())
                    .Returns(GetMediaListResponse);
 
-            GetMediaListResponse response = _api.GetMediaList();
+            JObject response = _api.GetMediaList();
 
             Assert.NotNull(response);
-            Assert.Equal(1, response.Media.Length);
-            Assert.Equal(new DateTime(2013, 1, 1, 12, 12, 12, 0), response.Media[0].CreateDate);
-            Assert.Equal(new DateTime(2013, 1, 1, 12, 12, 12, 0), response.Media[0].FinishDate);
-            Assert.Equal(new DateTime(2013, 1, 1, 12, 12, 12, 0), response.Media[0].StartDate);
-            Assert.Equal("mediastatus", response.Media[0].MediaStatus);
-            Assert.Equal("mediaid", response.Media[0].MediaID);
-            Assert.Equal("sourcefile", response.Media[0].MediaFile);
+            Assert.Equal(1, ((JArray)response["media"]).Count);
+            var media = response["media"][0];
+            Assert.Equal(new DateTime(2013, 1, 1, 12, 12, 12, 0), media["createdate"]);
+            Assert.Equal(new DateTime(2013, 1, 1, 12, 12, 12, 0), media["finishdate"]);
+            Assert.Equal(new DateTime(2013, 1, 1, 12, 12, 12, 0), media["startdate"]);
+            Assert.Equal("mediastatus", media["mediastatus"]);
+            Assert.Equal("mediaid", media["mediaid"]);
+            Assert.Equal("sourcefile", media["mediafile"]);
         }
 
         [Fact]
         public void GetStatus()
         {
-            var query = _plant.Create<EncodingQuery>();
-            query.Action = QueryAction.GetStatus;
-
-            _client.CreateQuery(Arg.Any<QueryAction>())
-                   .Returns(query);
             _client
-                .Execute(Arg.Is<EncodingQuery>(eq => eq.Action == QueryAction.GetStatus))
+                .Execute(Arg.Any<JObject>())
                 .Returns(GetStatusResponse);
 
-            GetStatusResponse response = _api.GetStatus(query.MediaId);
+            JObject response = _api.GetStatus("[MediaID]");
 
             Assert.NotNull(response);
-            Assert.Equal("[MediaID]", response.ID);
+            Assert.Equal("[MediaID]", response["id"]);
         }
 
         [Fact]
@@ -143,15 +123,6 @@ namespace VML.Encoding.Tests
         public void GetStatus_WhitespaceMediaId_Throws()
         {
             Assert.Throws<ArgumentNullException>(() => _api.GetStatus(string.Empty));
-        }
-
-        #endregion
-
-        #region Methods
-
-        protected bool TestForMediaList(EncodingQuery eq)
-        {
-            return eq.Action == QueryAction.GetMediaList;
         }
 
         #endregion
